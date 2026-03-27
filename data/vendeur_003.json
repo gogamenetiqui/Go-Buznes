@@ -17,19 +17,19 @@
       "nom": "Veste", 
       "prix_num": 40905, 
       "categorie": "net", 
-      "images": ["images/1.png"] 
+      "images": ["images/shekinah.png"] 
     },
     { 
       "nom": "T-shirtKoma", 
       "prix_num": 1200, 
       "categorie": "Clothing", 
-      "images": ["images/12.png"] 
+      "images": ["images/ets_franky.png"] 
     },
     { 
       "nom": "Ceinture Classique", 
       "prix_num": 800, 
       "categorie": "mode", 
-      "images": ["images/17.png"] 
+      "images": ["images/ets_franky.png"] 
     }
   ]
 }
