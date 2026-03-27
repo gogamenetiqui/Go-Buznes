@@ -1,0 +1,36 @@
+{
+  "affichage": { 
+    "date_fin": "2026-04-30",
+    "badge_fin": "2026-04-15",
+    "type_badge": "or",
+    "sabbat": "oui"    
+  },
+  "infos": {
+    "nom": "Ets_Franky",
+    "logo": "images/ets_franky.png",
+    "description_courte": "Votre Satisfaction Notre Engagement",
+    "adresse": "Goma, Nord-Kivu, RDC",
+    "specialite": "Vente UNites & Accessoires",
+    "telephone": "+243978337629"
+  },
+  "produits": [
+    { 
+      "nom": "Service Rapide", 
+      "prix_num": 1, 
+      "categorie": "Télécominication", 
+      "images": ["images/ets_franky.png"] 
+    },
+    { 
+      "nom": "Badge Meta", 
+      "prix_num": 1200, 
+      "categorie": "Clothing", 
+      "images": ["images/12.png"] 
+    },
+    { 
+      "nom": "Carte jeux", 
+      "prix_num": 8, 
+      "categorie": "mode", 
+      "images": ["images/11.png"] 
+    }
+  ]
+}

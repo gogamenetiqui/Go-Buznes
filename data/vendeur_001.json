@@ -1,0 +1,35 @@
+{
+  "affichage": { 
+    "date_fin": "2026-12-31",
+    "badge_fin": "2026-0-01",
+    "type_badge": "bleu"
+  },
+  "infos": {
+    "nom": "Soniqui+",
+    "logo": "images/10.png",
+    "description_courte": "tendances.",
+    "adresse": "",
+    "specialite": "RS",
+    "telephone": "+243888000222"
+  },
+  "produits": [
+    { 
+      "nom": "Groupe", 
+      "prix_num": 5, 
+      "categorie": "net", 
+      "images": ["images/11.png"] 
+    },
+    { 
+      "nom": "Badge Meta", 
+      "prix_num": 1200, 
+      "categorie": "Clothing", 
+      "images": ["images/12.png"] 
+    },
+    { 
+      "nom": "Carte jeux", 
+      "prix_num": 8, 
+      "categorie": "mode", 
+      "images": ["images/11.png"] 
+    }
+  ]
+}

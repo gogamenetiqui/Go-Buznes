@@ -1,0 +1,35 @@
+{
+  "affichage": { 
+    "date_fin": "2026-12-31",
+    "badge_fin": "2026-06-01",
+    "type_badge": "or"
+  },
+  "infos": {
+    "nom": "NETIQUI",
+    "logo": "images/8.png",
+    "description_courte": "Vêtements et accessoires tendances.",
+    "adresse": "Ndosho| TPD N° 245",
+    "specialite": "Clothing X Accessoirs",
+    "telephone": "+243888000222"
+  },
+  "produits": [
+    { 
+      "nom": "Veste", 
+      "prix_num": 4905, 
+      "categorie": "net", 
+      "images": ["images/11.png"] 
+    },
+    { 
+      "nom": "T-shirt-Koma", 
+      "prix_num": 10, 
+      "categorie": "Clothing", 
+      "images": ["images/5.png"] 
+    },
+    { 
+      "nom": "Ceinture Classique", 
+      "prix_num": 800, 
+      "categorie": "mode", 
+      "images": ["images/9.png"] 
+    }
+  ]
+}
