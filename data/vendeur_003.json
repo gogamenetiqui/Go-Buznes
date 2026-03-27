@@ -17,7 +17,7 @@
       "nom": "Veste", 
       "prix_num": 40905, 
       "categorie": "net", 
-      "images": [""] 
+      "images": ["images/netiqui_logo.png"] 
     },
     { 
       "nom": "T-shirtKoma", 
