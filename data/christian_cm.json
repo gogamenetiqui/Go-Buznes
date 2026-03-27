@@ -1,0 +1,37 @@
+{
+  "affichage": { 
+    "date_fin": "2026-12-30",
+    "badge_fin": "2026-12-15",
+    "type_badge": "or",
+    "sabbat": "oui"    
+  },
+  "infos": {
+    "nom": "Christian C.M",
+    "logo": "images/christian.png",
+    "description_courte": "🛑 Si n'importe qui peut te mettre en colère, alors n'importe qui est ton maître.",
+    "adresse": "Ndosho/Goma, Nord-Kivu, RDC",
+    "specialite": "Développeur web",
+    "telephone": "+24808644859"
+  },
+  "produits": [
+    { 
+      "nom": "Netiqui Forge", 
+      "prix_num": 5000, 
+      "categorie": "Store app", 
+      "images": ["images/christian.png"] 
+    },
+    { 
+      "nom": "Badge GB", 
+      "prix_num": 150, 
+      "categorie": "App", 
+      "images": ["images/christian.png"] 
+    },
+    { 
+      "nom": "Bdge or/bleu", 
+      "prix_num": 8, 
+      "categorie": "App", 
+      "images": ["images/christian.png"] 
+    }
+  ]
+    }
+    
