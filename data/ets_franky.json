@@ -1,36 +1,167 @@
 {
   "affichage": { 
-    "date_fin": "2026-04-30",
-    "badge_fin": "2026-04-15",
-    "type_badge": "or",
-    "sabbat": "oui"    
+    "date_fin": "2026-09-30",
+    "badge_fin": "2026-07-15",
+    "type_badge": "blue" 
   },
   "infos": {
-    "nom": "Ets_Franky",
-    "logo": "images/ets_franky.png",
-    "description_courte": "Votre Satisfaction Notre Engagement",
-    "adresse": "Goma, Nord-Kivu, RDC",
+    "nom": "Ets_Francky",
+    "logo": "images/ets_francky_logo.jpg",
+    "description_courte": "Votre Confiance Notre Engagement",
+    "adresse": "RDC | Nord-Kivu | Goma | TPD",
     "specialite": "Vente UNites & Accessoires",
     "telephone": "+243978337629"
   },
   "produits": [
     { 
-      "nom": "Service Rapide", 
-      "prix_num": 1, 
-      "categorie": "Télécominication", 
-      "images": ["images/ets_franky.png"] 
+      "nom": "Super Fast Charging 200w", 
+      "prix_num": 3.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/super_fast_charging.jpg"] 
     },
     { 
-      "nom": "Badge Meta", 
-      "prix_num": 1200, 
-      "categorie": "Clothing", 
-      "images": ["images/shekinah.png"] 
+      "nom": "USB Fast Charger 45w", 
+      "prix_num": 3.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/usb_fast_charger.jpg"] 
     },
     { 
-      "nom": "Carte jeux", 
+      "nom": "Chargeur", 
+      "prix_num": 4, 
+      "categorie": "Accessoires", 
+      "images": ["images/chargeur.jpg"] 
+    },
+    { 
+      "nom": "Tecno Batterie", 
+      "prix_num": 3.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/tec_batt.jpg"] 
+    },
+    { 
+      "nom": "Itel Batterie", 
+      "prix_num": 2.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/it_batt.jpg"] 
+    },
+    { 
+      "nom": "Wikoo K23", 
+      "prix_num": 10, 
+      "categorie": "Téléphone", 
+      "images": ["images/wikoo_k23.jpg"] 
+    },
+    { 
+      "nom": "Ecouteur Sans fil (Air Pod)", 
+      "prix_num": 10, 
+      "categorie": "Accessoires", 
+      "images": ["images/air_pod.jpg"] 
+    },
+    { 
+      "nom": "Fast Charger 120W 2PD+2USB", 
+      "prix_num": 5, 
+      "categorie": "Accessoires", 
+      "images": ["images/fast_charger.jpg"] 
+    },
+    { 
+      "nom": "Gost USB", 
+      "prix_num": 2.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/gost_usb.jpg"] 
+    },
+    { 
+      "nom": "USB R|B", 
+      "prix_num": 2.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/rb_usb.jpg"] 
+    },
+    { 
+      "nom": "Super Fast Charging 200w", 
+      "prix_num": 3.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/fast_200w.jpg"] 
+    },
+    { 
+      "nom": "USB AD 02 Type-C", 
+      "prix_num": 3.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/ad_02.jpg"] 
+    },
+    { 
+      "nom": "USB ACTIVE STAR", 
+      "prix_num": 3, 
+      "categorie": "Accessoires", 
+      "images": ["images/usb_activestar.jpg"] 
+    },
+    { 
+      "nom": "USB AD 02 FC TYPE-C", 
+      "prix_num": 3, 
+      "categorie": "Accessoires", 
+      "images": ["images/ad_02_FC.jpg"] 
+    },
+    { 
+      "nom": "USB C Power Delivery", 
+      "prix_num": 5, 
+      "categorie": "Accessoires", 
+      "images": ["images/usb-c.jpg"] 
+    },
+    { 
+      "nom": "OT USB", 
+      "prix_num": 2.5, 
+      "categorie": "Accessoires", 
+      "images": ["images/ot_usb.jpg"] 
+    },
+    { 
+      "nom": "8 Multi Port", 
+      "prix_num": 5, 
+      "categorie": "Accessoires", 
+      "images": ["images/multi.jpg"] 
+    },
+    { 
+      "nom": "Charger 120W", 
+      "prix_num": 4, 
+      "categorie": "Accessoires", 
+      "images": ["images/charger_120.jpg"] 
+    },
+    { 
+      "nom": "SHEMERS S5081", 
+      "prix_num": 10, 
+      "categorie": "Téléphone", 
+      "images": ["images/s5081.jpg"] 
+    },
+    { 
+      "nom": "Wikoo K1100", 
       "prix_num": 8, 
-      "categorie": "mode", 
-      "images": ["images/11.png"] 
+      "categorie": "Téléphone", 
+      "images": ["images/k1100.jpg"] 
+    },
+    { 
+      "nom": "Itel it5615", 
+      "prix_num": 15, 
+      "categorie": "Téléphone", 
+      "images": ["images/it5615.jpg"] 
+    },
+    { 
+      "nom": "Tecno T353", 
+      "prix_num": 15, 
+      "categorie": "Téléphone", 
+      "images": ["images/t353.jpg"] 
+    },
+    { 
+      "nom": "Tecno T528", 
+      "prix_num": 18, 
+      "categorie": "Téléphone", 
+      "images": ["images/t528.jpg"] 
+    },
+    { 
+      "nom": "URBEST U5081", 
+      "prix_num": 10, 
+      "categorie": "Téléphone", 
+      "images": ["images/u5081.jpg"] 
+    },
+    { 
+      "nom": "M-HORSE M2300", 
+      "prix_num": 10, 
+      "categorie": "Téléphone", 
+      "images": ["images/m2300.jpg"] 
     }
   ]
 }
