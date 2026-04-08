@@ -1,0 +1,77 @@
+{
+  "affichage": { 
+    "date_fin": "2026-10-08",
+    "badge_fin": "2026-08-15",
+    "type_badge": "bleu" 
+  },
+  "infos": {
+    "nom": "Dieve_Service",
+    "logo": "images/dvs_logo.jpg",
+    "description_courte": "Quand tout va mal suis là pour t'aider, qui suis je ??? Mon Dieu",
+    "adresse": "",
+    "specialite": "Style & Habillement",
+    "telephone": "+243992312504"
+  },
+  "produits": [
+    { 
+      "nom": "Costume Trois-Pièces", 
+      "prix_num": 50, 
+      "categorie": "Style", 
+      "images": ["images/dvs_costume_trois_pieces.jpg"] 
+    },
+    { 
+      "nom": "Track Balenciaga", 
+      "prix_num": 10, 
+      "categorie": "Soulier", 
+      "images": ["images/dvs_track_balenciaga.jpg"] 
+    },
+    { 
+      "nom": "Air Force", 
+      "prix_num": 20, 
+      "categorie": "Soulier", 
+      "images": ["images/dvs_air_force.jpg"] 
+    },
+    { 
+      "nom": "Jordan 1", 
+      "prix_num": 18, 
+      "categorie": "Soulier", 
+      "images": ["images/dvs_jordan1.jpg"] 
+    },
+    { 
+      "nom": "TN", 
+      "prix_num": 28, 
+      "categorie": "Soulier", 
+      "images": ["images/dvs_tn.jpg"] 
+    },
+    { 
+      "nom": "TN Pt Format", 
+      "prix_num": 25, 
+      "categorie": "Soulier", 
+      "images": ["images/dvs_tn_pt.jpg"] 
+    },
+    { 
+      "nom": "Chemise Dreep", 
+      "prix_num": 12, 
+      "categorie": "Style", 
+      "images": ["images/dvs_chemise_dreep.jpg"] 
+    },
+    { 
+      "nom": "Chose Asic", 
+      "prix_num": 25, 
+      "categorie": "Style", 
+      "images": ["images/dvs_chose_asic.jpg"] 
+    },
+    { 
+      "nom": "Prada Milano", 
+      "prix_num": 30, 
+      "categorie": "Soulier", 
+      "images": ["images/dvs_prada_milano.jpg"] 
+    },
+    { 
+      "nom": "TN Vietnam", 
+      "prix_num": 35, 
+      "categorie": "Soulier", 
+      "images": ["images/dvs_tn_vietnam.jpg"] 
+    }
+  ]
+}
