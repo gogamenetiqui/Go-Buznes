@@ -1,5 +1,8 @@
 import { chargerDonneesVendeurs } from './data.js';
-
+// AJOUTEZ JUSTE 'export' ICI
+export async function initialiserApp() {
+    const dataBrute = await chargerDonneesVendeurs();
+    // ... tout le reste de votre code reste identique ...
 let tousLesProduits = [];
 let toutesLesBoutiques = [];
 let boutiqueSelectionnee = null;
