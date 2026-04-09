@@ -8,9 +8,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style du bouton d'installation */
+        .download-banner {
+            background: #d4af37; /* Ton Or */
+            color: black;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .btn-download {
+            background: black;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
+
+    <div class="download-banner" id="install-banner">
+        <span><i class="fa-solid fa-mobile-screen-button"></i> Meilleure expérience sur l'App</span>
+        <a href="LIEN_DE_TON_APK_OU_STORE" class="btn-download">Installer</a>
+    </div>
 
     <div class="app-container">
         <header class="app-header">
@@ -74,6 +107,12 @@
 
     <script type="module" src="app.js"></script>
     <script src="https://gogamenetiqui.github.io/serverapide/ads.js"></script>
+    <script>
+        // Optionnel : Masquer la bannière si l'utilisateur est déjà sur l'app (TWA/PWA)
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            document.getElementById('install-banner').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>
