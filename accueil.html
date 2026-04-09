@@ -9,41 +9,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Style du bouton d'installation */
-        .download-banner {
+        /* Bouton flottant discret pour l'installation */
+        .fab-install {
+            position: fixed;
+            bottom: 85px; /* Placé juste au-dessus de la barre de navigation */
+            right: 20px;
+            width: 48px;
+            height: 48px;
             background: #d4af37; /* Ton Or */
-            color: black;
-            padding: 10px 15px;
+            color: #000;
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            font-size: 13px;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            z-index: 999;
+            transition: transform 0.2s ease, opacity 0.3s ease;
         }
 
-        .btn-download {
-            background: black;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 11px;
-            text-transform: uppercase;
-            cursor: pointer;
-            text-decoration: none;
+        .fab-install:active {
+            transform: scale(0.9);
+        }
+
+        .fab-install i {
+            font-size: 20px;
+        }
+
+        /* Tooltip discret au survol (optionnel) */
+        .fab-install::after {
+            content: "Installer l'app";
+            position: absolute;
+            right: 55px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        @media (hover: hover) {
+            .fab-install:hover::after {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="download-banner" id="install-banner">
-        <span><i class="fa-solid fa-mobile-screen-button"></i> Meilleure expérience sur l'App</span>
-        <a href="LIEN_DE_TON_APK_OU_STORE" class="btn-download">Installer</a>
-    </div>
+    <a href="LIEN_DE_TON_APK" class="fab-install" id="install-fab" title="Installer l'application">
+        <i class="fa-solid fa-download"></i>
+    </a>
 
     <div class="app-container">
         <header class="app-header">
@@ -108,9 +129,10 @@
     <script type="module" src="app.js"></script>
     <script src="https://gogamenetiqui.github.io/serverapide/ads.js"></script>
     <script>
-        // Optionnel : Masquer la bannière si l'utilisateur est déjà sur l'app (TWA/PWA)
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            document.getElementById('install-banner').style.display = 'none';
+        // Masquer le bouton si l'utilisateur utilise déjà l'app installée (PWA/TWA)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            const fab = document.getElementById('install-fab');
+            if (fab) fab.style.display = 'none';
         }
     </script>
 </body>
