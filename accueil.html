@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Buznes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <h1>Go <span>Buznes</span></h1>
+                </div>
+                <p id="total-articles-display">Initialisation...</p>
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-main">
+                    <span id="count-total">0</span>
+                    <small>Vendeurs</small>
+                </div>
+                <div class="stat-details">
+                    <div class="stat-item gold" title="Badges Or">
+                        <i class="fa-solid fa-crown"></i>
+                        <span id="count-gold">0</span>
+                    </div>
+                    <div class="stat-item blue" title="Vérifiés">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span id="count-blue">0</span>
+                    </div>
+                    <div class="stat-item neutral" title="Boutiques standards">
+                        <i class="fa-solid fa-shop"></i>
+                        <span id="count-none">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="main-search" placeholder="Rechercher à Goma...">
+            </div>
+        </div>
+
+        <main class="app-content" id="main-render"></main>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" data-page="home">
+                <i class="fa-solid fa-house"></i><span>Accueil</span>
+            </a>
+            <a href="#" class="nav-item" data-page="stores">
+                <i class="fa-solid fa-store"></i><span>Boutiques</span>
+            </a>
+            <a href="#" class="nav-item" data-page="vendre">
+                <i class="fa-solid fa-rocket"></i><span>Vendre</span>
+            </a>
+            <a href="#" class="nav-item" data-page="biens">
+                <i class="fa-solid fa-boxes-stacked"></i><span>Biens</span>
+            </a>
+            <a href="#" class="nav-item" data-page="profil">
+                <i class="fa-regular fa-user"></i><span>Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script type="module" src="app.js"></script>
+    <script src="https://gogamenetiqui.github.io/serverapide/ads.js"></script>
+</body>
+
+</html>
