@@ -1,8 +1,5 @@
 import { chargerDonneesVendeurs } from './data.js';
-// AJOUTEZ JUSTE 'export' ICI
-export async function initialiserApp() {
-    const dataBrute = await chargerDonneesVendeurs();
-    // ... tout le reste de votre code reste identique ...
+
 let tousLesProduits = [];
 let toutesLesBoutiques = [];
 let boutiqueSelectionnee = null;
@@ -22,6 +19,17 @@ function mettreAJourStatsHeader() {
     if (document.getElementById('count-none'))  document.getElementById('count-none').innerText = totalNone;
 }
 
+// ICI : Ajoute le mot "export" juste devant "async"
+
+export async function initialiserApp() { 
+
+    const dataBrute = await chargerDonneesVendeurs();
+
+    const maintenant = new Date();
+
+
+
+    // ... la suite de ton code ne change pas du tout ...
 // --- INITIALISATION PRINCIPALE ---
 async function initialiserApp() {
     const dataBrute = await chargerDonneesVendeurs();
