@@ -72,52 +72,8 @@
         </nav>
     </div>
 
-    <script type="module">
-    import { initialiserApp } from './app.js';
-
-    async function lancerLogicDePartage() {
-        // 1. On lance d'abord l'initialisation de l'application
-        await initialiserApp();
-
-        // 2. Une fois l'app chargée, on regarde s'il y a un lien de partage
-        const params = new URLSearchParams(window.location.search);
-        const nomBoutiqueLien = params.get('v');
-        const nomProduitLien = params.get('p');
-
-        if (nomBoutiqueLien) {
-            // On cherche la boutique dans les données déjà chargées par app.js
-            // Note: On accède aux variables globales si elles sont exposées ou on simule le clic
-            if (window.selectionnerBoutique) {
-                window.selectionnerBoutique(nomBoutiqueLien);
-
-                // Si on a aussi un produit, on l'ouvre après un mini délai pour laisser le profil s'afficher
-                if (nomProduitLien && window.ouvrirModaleProduit) {
-                    setTimeout(() => {
-                        // On cherche l'index du produit dans la liste globale
-                        // Cette partie suppose que 'tousLesProduits' est accessible ou on le cherche via le DOM
-                        const cards = document.querySelectorAll('.product-card');
-                        cards.forEach((card, index) => {
-                            if (card.innerText.toLowerCase().includes(nomProduitLien.toLowerCase())) {
-                                window.ouvrirModaleProduit(index);
-                            }
-                        });
-                    }, 500);
-                }
-            }
-            
-            // On nettoie l'URL proprement sans recharger la page
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-    }
-
-    // Exécution au chargement
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', lancerLogicDePartage);
-    } else {
-        lancerLogicDePartage();
-    }
-</script>
-<script src="https://gogamenetiqui.github.io/serverapide/ads.js"></script>
+    <script type="module" src="app.js"></script>
+    <script src="https://gogamenetiqui.github.io/serverapide/ads.js"></script>
 </body>
 
 </html>
