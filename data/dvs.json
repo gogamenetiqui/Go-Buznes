@@ -16,7 +16,7 @@
     { 
       "nom": "Costume Trois-Pièces", 
       "prix_num": 50, 
-      "categorie": "Style", 
+      "categorie": "Costume", 
       "images": ["images/dvs_costume_trois_pieces.jpg"] 
     },
     { 
@@ -52,13 +52,13 @@
     { 
       "nom": "Chemise Dreep", 
       "prix_num": 12, 
-      "categorie": "Style", 
+      "categorie": "Chemise", 
       "images": ["images/dvs_chemise_dreep.jpg"] 
     },
     { 
       "nom": "Chose Asic", 
       "prix_num": 25, 
-      "categorie": "Style", 
+      "categorie": "Chemise", 
       "images": ["images/dvs_chose_asic.jpg"] 
     },
     { 
