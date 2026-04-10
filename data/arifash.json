@@ -1,0 +1,77 @@
+{
+  "affichage": { 
+    "date_fin": "2026-09-30",
+    "badge_fin": "2026-07-15",
+    "type_badge": "blue" 
+  },
+  "infos": {
+    "nom": "Ari_Fashon",
+    "logo": "images/arifash_logo.jpg",
+    "description_courte": "La Musique c'est ma passion",
+    "adresse": "RDC | Nord-Kivu | Goma | Rond-point Mayani 2 lampe",
+    "specialite": "Style & Habillement",
+    "telephone": "+243901582030"
+  },
+  "produits": [
+    { 
+      "nom": "Boyfreind", 
+      "prix_num": 13, 
+      "categorie": "Pantalon", 
+      "images": ["images/arifash_boyfreind.jpg"] 
+    },
+    { 
+      "nom": "Sabot", 
+      "prix_num": 15, 
+      "categorie": "Soulier", 
+      "images": ["images/arifash_sabot.jpg"] 
+    },
+    { 
+      "nom": "Pantalon", 
+      "prix_num": 12, 
+      "categorie": "Pantalon", 
+      "images": ["images/arifash_pantalon.jpg"] 
+    },
+    { 
+      "nom": "Chemise", 
+      "prix_num": 15, 
+      "categorie": "Chemise", 
+      "images": ["images/arifash_chemise.jpg"] 
+    },
+    { 
+      "nom": "Polo", 
+      "prix_num": 12, 
+      "categorie": "Lacoste, Polo, T-shirt", 
+      "images": ["images/arifash_polo.jpg"] 
+    },
+    { 
+      "nom": "Jordan 3", 
+      "prix_num": 25, 
+      "categorie": "Soulier", 
+      "images": ["images/arifash_jordan3.jpg"] 
+    },
+    { 
+      "nom": "Prada", 
+      "prix_num": 25, 
+      "categorie": "Soulier", 
+      "images": ["images/arifash_prada.jpg"] 
+    },
+    { 
+      "nom": "Lacoste", 
+      "prix_num": 12, 
+      "categorie": "Lacoste, Polo, T-shirt", 
+      "images": ["images/arifash_lacoste.jpg"] 
+    },
+    { 
+      "nom": "Crocs", 
+      "prix_num": 10, 
+      "categorie": "Soulier", 
+      "images": ["images/arifash_crocs.jpg"] 
+    },
+    { 
+      "nom": "Ensemble Dame", 
+      "prix_num": 25, 
+      "categorie": "Ensemble", 
+      "images": ["images/arifash_ensemble_dame.jpg"] 
+    }
+  ]
+}
