@@ -1,1 +1,32 @@
+name: Synchronisation Miroir Public
 
+on:
+  push:
+    branches:
+      - main # Déclenche l'action à chaque push sur la branche main privée
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Récupère le code du dépôt privé
+      - name: Recupérer le code source
+        uses: actions/checkout@v4
+
+      # 2. Configure la clé SSH pour avoir le droit d'écrire sur le dépôt public
+      - name: Configurer la clé SSH de destination
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.RETO_MIROIR_CLE }}
+
+      # 3. Déploie proprement vers le dépôt miroir public
+      - name: Pousser le code vers le dépôt public
+        run: |
+          git config --global user.name "Netiqui Bot"
+          git config --global user.email "bot@netiqui.com"
+          
+          # Ajoute le dépôt public comme une destination distante appelée 'miroir'
+          git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
+          
+          # Force la mise à jour de la branche main publique avec le contenu actuel
+          git push miroir main --force
