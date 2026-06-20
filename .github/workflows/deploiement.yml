@@ -1,4 +1,4 @@
-name: Synchronisation Miroir Public
+Configureigure: Synchronisation Miroir Public
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0 # Récupère tout l'historique pour éviter les erreurs de push shallow
 
-      # 2. Configure la clé SSH de manière sécurisée
+      # 2. canfigure la clé SSH de manière sécurisée
       - name: Configurer la clé SSH de destination
         uses: webfactory/ssh-agent@v0.9.0
         with:
