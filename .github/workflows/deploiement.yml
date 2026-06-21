@@ -31,3 +31,5 @@ jobs:
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
           
           GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir main --force -v
+
+# test final
