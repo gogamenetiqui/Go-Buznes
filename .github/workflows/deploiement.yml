@@ -4,43 +4,34 @@ on:
   push:
     branches:
       - main
-      - master # Se déclenche, que ta branche s'appelle main ou master
+      - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. Récupère le code source de ton dépôt privé (Netiqui)
       - name: Récupérer le code source
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Récupère tout l'historique pour éviter les blocages de push
+          fetch-depth: 0
 
-      # 2. Configure la clé SSH de manière sécurisée (avec des guillemets stricts)
       - name: Configurer la clé SSH de destination
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: "${{ secrets.RETO_MIROIR_CLE }}"
+          ssh-private-key: "${{ secrets.REPO_MIROIR_CLE }}"
 
-      # 3. Prépare l'environnement réseau et pousse le code vers le dépôt public (Gogamenetiqui)
       - name: Pousser le code vers le dépôt public
         run: |
-          # 1. Enregistrement de l'identité de GitHub pour éviter les blocages SSH interactifs
           mkdir -p ~/.ssh
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           
-          # 2. Configuration de l'identité Git du Bot
           git config --global user.name "Netiqui Bot"
           git config --global user.email "bot@netiqui.com"
           
-          # 3. Nettoyage et configuration du lien vers le dépôt public distant
           git remote remove miroir || true
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
           
-          # 4. Récupération du nom de la branche actuelle (main ou master)
           BRANCH_ACTUELLE=$(git branch --show-current)
           echo "🚀 Branche détectée : $BRANCH_ACTUELLE"
           
-          # 5. Push forcé et détaillé vers le dépôt public sur la même branche
           GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
-          
