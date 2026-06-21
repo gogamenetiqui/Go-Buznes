@@ -1,0 +1,393 @@
+/* ==========================================================================
+   CHARTE GRAPHIQUE GLOBALE (Inspirée du Nouveau Logo, de Google & Meta)
+   ========================================================================== */
+:root {
+    --bg-app: #f0f2f5;             /* Fond d'écran gris clair (Style Meta/Facebook) */
+    --bg-card: #ffffff;            /* Blanc pur extrait du logo pour les conteneurs */
+    --text-main: #000000;          /* Noir absolu pour les titres et prix */
+    --text-body: #1c1e21;          /* Noir adouci pour les textes courants */
+    --text-muted: #5f6368;         /* Gris standard Google pour les sous-titres */
+    
+    /* COULEURS DE MARQUE & BADGES */
+    --logo-blue: #0046ad;          /* Bleu Royal officiel de ton nouveau logo */
+    --logo-blue-light: #e8f0fe;    /* Fond bleu très clair pour les boutons ou focus */
+    --badge-gold: #d4af37;         /* Or classique pour les partenaires majeurs */
+    --badge-gold-light: #fef7e0;   /* Fond or subtil */
+    --badge-gray: #f1f3f4;         /* Fond gris pour les boutiques standards */
+    
+    /* INTERFACE & STRUCTURE */
+    --border-light: #dadce0;       /* Ligne de séparation fine style Google */
+    --radius-main: 12px;           /* Ajusté pour des angles modernes et arrondis */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-app);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   OPTIMISATION UNIVERSELLE DES IMAGES CARRÉES (1:1 / 4:4)
+   ========================================================================== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Classe à appliquer sur les conteneurs d'images de produits ou de bannières carrées */
+.square-img-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;          /* Force le conteneur à rester parfaitement carré */
+    overflow: hidden;
+    position: relative;
+    background-color: #f1f3f4;
+}
+
+.square-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;            /* Remplit le carré sans déformer l'image */
+    object-position: center;
+}
+
+/* Utilitaire pour masquer les barres de défilement des listes horizontales */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ==========================================================================
+   CONTENEUR MOBILE UNIVERSEL EXTENSIBLE
+   ========================================================================== */
+.app-container {
+    width: 100%;
+    max-width: 420px;              /* Standard mobile */
+    min-height: 100vh;
+    background-color: var(--bg-card);
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 64px;          /* Protège contre la superposition mobile */
+    transition: max-width 0.3s ease;
+}
+
+/* ==========================================================================
+   EN-TÊTE FIXE (Style Google Workspace)
+   ========================================================================== */
+.app-header {
+    background-color: var(--bg-card);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-left .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-icon {
+    font-size: 22px;
+    color: var(--logo-blue);
+}
+
+.header-left h1 {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+}
+
+.header-left h1 span {
+    color: var(--logo-blue);
+    font-weight: 700;
+}
+
+#total-articles-display {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+/* BOÎTES DE STATISTIQUES (HEADER) */
+.header-stats {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-badge.total {
+    text-align: center;
+    background-color: var(--logo-blue-light);
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.stat-badge.total span {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--logo-blue);
+}
+
+.stat-badge.total small {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--logo-blue);
+    text-transform: uppercase;
+}
+
+.stat-sub-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-mini {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.stat-mini.gold { background: var(--badge-gold-light); color: var(--badge-gold); }
+.stat-mini.blue { background: var(--logo-blue-light); color: var(--logo-blue); }
+.stat-mini.standard { background: var(--badge-gray); color: var(--text-muted); }
+
+/* ==========================================================================
+   BARRE DE RECHERCHE PERSISTANTE
+   ========================================================================== */
+.search-wrapper {
+    padding: 12px 16px;
+    background-color: var(--bg-card);
+}
+
+.search-bar-box {
+    display: flex;
+    align-items: center;
+    background-color: #f1f3f4;
+    padding: 0 14px;
+    height: 46px;
+    border-radius: 24px;
+    border: 1px solid transparent;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.search-bar-box:focus-within {
+    background-color: var(--bg-card);
+    border-color: var(--logo-blue);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.search-icon {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-right: 12px;
+}
+
+.search-bar-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: var(--text-body);
+}
+
+/* ==========================================================================
+   ZONE DE CONTENU DYNAMIQUE
+   ========================================================================== */
+.app-content {
+    flex: 1;
+    padding: 16px;
+    background-color: var(--bg-card);
+}
+
+/* ==========================================================================
+   BARRE DE NAVIGATION IMMOBILE (Mobile: Bas / PC: Droite)
+   ========================================================================== */
+.bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 420px;
+    height: 64px;
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+    transition: max-width 0.3s ease;
+}
+
+.nav-tab {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+}
+
+.nav-tab i {
+    display: block;
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    transition: color 0.15s, transform 0.1s;
+}
+
+.nav-tab span {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
+}
+
+.nav-tab.active i { color: var(--logo-blue); transform: scale(1.05); }
+.nav-tab.active span { color: var(--logo-blue); font-weight: 500; }
+.nav-tab:active i { transform: scale(0.92); }
+
+/* ==========================================================================
+   ALERTES ET CONFIRMATIONS CENTRALISÉES (GB)
+   ========================================================================== */
+.gb-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+    backdrop-filter: blur(2px);
+}
+
+.gb-alert-box {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 320px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    animation: gbPopIn 0.25s ease-out;
+}
+
+.gb-alert-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: #0046ad;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+    border-radius: 50%;
+    margin-bottom: 16px;
+}
+
+.gb-alert-text {
+    font-size: 14px;
+    color: #1c1e21;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    font-weight: 500;
+}
+
+.gb-alert-actions { display: flex; gap: 10px; justify-content: center; }
+.gb-alert-btn { flex: 1; height: 38px; border-radius: 20px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; }
+.gb-alert-btn-primary { background: #0046ad; color: #ffffff; }
+.gb-alert-btn-secondary { background: #f1f3f4; color: #1c1e21; }
+
+@keyframes gbPopIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   MEDIA QUERY : ADAPTATION ET REMPLISSAGE GRAND ÉCRAN (PC / TABLETTES)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .app-container {
+        max-width: 1024px;         /* S'étend sur une largeur confortable de type desktop */
+        padding-bottom: 0;         /* Supprime le padding du bas */
+        padding-right: 80px;       /* Laisse de la place pour la navigation latérale droite */
+    }
+
+    /* Forcer la grille à s'adapter proprement sur ordinateur */
+    .app-content > div[style*="grid-template-columns"],
+    #grid-bonnes-affaires {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+        gap: 16px !important;
+    }
+
+    /* Transformation de la barre du bas en une barre latérale droite fixe */
+    .bottom-navigation {
+        top: 0;
+        bottom: auto;
+        left: auto;
+        right: 0;
+        transform: none;
+        width: 80px;
+        height: 100vh;
+        max-width: 80px;
+        flex-direction: column;    /* Aligne de haut en bas */
+        justify-content: center;
+        gap: 35px;                 /* Espacement élégant */
+        border-top: none;
+        border-left: 1px solid var(--border-light);
+    }
+
+    .nav-tab {
+        flex: none;
+        width: 100%;
+        height: 64px;
+    }
+}
+
+@media (min-width: 1200px) {
+    /* Écrans géants d'ordinateurs : on élargit encore plus pour un remplissage maximal */
+    .app-container {
+        max-width: 1366px;
+    }
+}
