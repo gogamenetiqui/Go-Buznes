@@ -9,19 +9,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. Récupère le code du dépôt privé
-      - name: Recupérer le code source
+      - name: Récupérer le code source
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Récupère tout l'historique pour éviter les erreurs de push shallow
+          fetch-depth: 0
 
-      # 2. Configure la clé SSH de manière sécurisée
       - name: Configurer la clé SSH de destination
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.RETO_MIROIR_CLE }}
+          ssh-private-key: "${{ secrets.RETO_MIROIR_CLE }}" # Ajout des guillemets pour sécuriser la chaîne
 
-      # 3. Déploie proprement et affiche l'erreur exacte en cas d'échec
       - name: Pousser le code vers le dépôt public
         run: |
           mkdir -p ~/.ssh
@@ -30,9 +27,7 @@ jobs:
           git config --global user.name "Netiqui Bot"
           git config --global user.email "bot@netiqui.com"
           
-          # Nettoyage des télécommandes existantes au cas où
           git remote remove miroir || true
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
           
-          # Exécution avec affichage détaillé (verbose -v) pour voir le blocage exact
           GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir main --force -v
