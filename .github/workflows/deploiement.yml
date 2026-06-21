@@ -43,3 +43,4 @@ jobs:
           
           # 5. Push forcé et détaillé vers le dépôt public sur la même branche
           GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
+          
