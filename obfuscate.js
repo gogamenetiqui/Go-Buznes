@@ -62,18 +62,23 @@ if (fs.existsSync(cheminIndexVendeurs)) {
                 if (boutique && boutique.id_boutique) {
                     // 1. Créer le dossier méta pour la Boutique
                     const dossierBoutique = path.join(__dirname, 'Boutique', boutique.id_boutique);
+                    
+                    let urlLogoComplete = boutique.logo;
+                    if (urlLogoComplete && !urlLogoComplete.startsWith('http')) {
+                        urlLogoComplete = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${boutique.logo}`;
+                    }
+
                     genererFichierMeta(
                         dossierBoutique, 
                         `🏪 Boutique ${boutique.nom}`, 
                         `Découvrez la vitrine officielle de ${boutique.nom} sur Go Buznes Goma.`, 
-                        boutique.logo || ""
+                        urlLogoComplete || ""
                     );
 
                     // 2. Créer les dossiers méta pour chaque Article de la boutique
                     if (boutique.articles && Array.isArray(boutique.articles)) {
                         boutique.articles.forEach((article, index) => {
                             
-                            // 🌟 PROTECTION & STRATÉGIE DE REPLI POUR L'ID UNIQUE
                             let idArticleValide = article.id_article;
                             if (!idArticleValide) {
                                 const fallbackId = article.designation.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_');
@@ -82,12 +87,19 @@ if (fs.existsSync(cheminIndexVendeurs)) {
 
                             const dossierArticle = path.join(__dirname, 'Article', boutique.id_boutique, idArticleValide);
                             
-                            // 🌟 HARMONISATION DES PROPRIÉTÉS (designation au lieu de nom)
+                            // 🌟 Résolution de l'image de l'article vers data/images/
+                            let urlImageComplete = article.image;
+                            if (urlImageComplete && !urlImageComplete.startsWith('http')) {
+                                urlImageComplete = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${article.image}`;
+                            } else if (!urlImageComplete) {
+                                urlImageComplete = urlLogoComplete || `https://gogamenetiqui.github.io/Go-Buznes/assets/default-preview.jpg`;
+                            }
+
                             genererFichierMeta(
                                 dossierArticle, 
                                 `🔥 ${article.designation} - ${article.prix} USD`, 
                                 `Découvrez cet article sur la vitrine de ${boutique.nom} via Go Buznes Goma.`, 
-                                article.image || ""
+                                urlImageComplete
                             );
                         });
                     }
@@ -112,11 +124,18 @@ if (fs.existsSync(cheminIndexAnnonces)) {
                 
                 if (annonce && annonce.id_annonce) {
                     const dossierAnnonce = path.join(__dirname, 'Annonce', annonce.id_annonce);
+                    
+                    // 🌟 Résolution de l'image de l'annonce vers data/images/
+                    let urlAnnonceImage = annonce.image;
+                    if (urlAnnonceImage && !urlAnnonceImage.startsWith('http')) {
+                        urlAnnonceImage = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${annonce.image}`;
+                    }
+
                     genererFichierMeta(
                         dossierAnnonce, 
                         `📢 Annonce - ${annonce.titre || "Go Buznes"}`, 
                         annonce.description || "Consultez cette annonce importante sur Go Buznes Goma.", 
-                        annonce.image || ""
+                        urlAnnonceImage || ""
                     );
                 }
             }
