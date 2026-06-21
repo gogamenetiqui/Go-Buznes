@@ -24,6 +24,7 @@ function dechiffrerDonnees(contenuChiffre) {
 function genererFichierMeta(dossierCible, titre, description, image) {
     fs.mkdirSync(dossierCible, { recursive: true });
     
+    // 🌟 Remplacement des "../" par l'URL absolue vers home.html pour éviter le 404
     const htmlMeta = `<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -33,7 +34,7 @@ function genererFichierMeta(dossierCible, titre, description, image) {
     <meta property="og:description" content="${description}" />
     <meta property="og:image" content="${image}" />
     <meta property="og:type" content="website" />
-    <script>window.location.href = "../../../index.html";</script>
+    <script>window.location.href = "https://gogamenetiqui.github.io/Go-Buznes/home.html";</script>
 </head>
 <body>
     <p>Redirection vers Go Buznes...</p>
@@ -42,7 +43,6 @@ function genererFichierMeta(dossierCible, titre, description, image) {
 
     fs.writeFileSync(path.join(dossierCible, 'index.html'), htmlMeta, 'utf8');
 }
-
 // ==========================================================================
 // PARTIE 2 : GÉNÉRATION AUTOMATIQUE DES DOSSIERS DE PARTAGE
 // ==========================================================================
