@@ -63,16 +63,26 @@ if (fs.existsSync(cheminIndexVendeurs)) {
                     // 1. Créer le dossier méta pour la Boutique
                     const dossierBoutique = path.join(__dirname, 'Boutique', boutique.id_boutique);
                     
-                    let urlLogoComplete = boutique.logo;
-                    if (urlLogoComplete && !urlLogoComplete.startsWith('http')) {
-                        urlLogoComplete = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${boutique.logo}`;
+                    // 🌟 MULTI-SCAN LOGO : Supporte 'logo' ou 'logo_entreprise'
+                    let nomLogo = boutique.logo || boutique.logo_entreprise || "";
+                    let urlLogoComplete = "";
+                    
+                    if (nomLogo) {
+                        if (nomLogo.startsWith('http')) {
+                            urlLogoComplete = nomLogo;
+                        } else {
+                            urlLogoComplete = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${nomLogo}`;
+                        }
+                    } else {
+                        // Fallback ultime si aucun logo n'est déclaré : construction dynamique du nom standard
+                        urlLogoComplete = `https://gogamenetiqui.github.io/Go-Buznes/data/images/logo_${boutique.id_boutique.toLowerCase()}.jpg`;
                     }
 
                     genererFichierMeta(
                         dossierBoutique, 
                         `🏪 Boutique ${boutique.nom}`, 
                         `Découvrez la vitrine officielle de ${boutique.nom} sur Go Buznes Goma.`, 
-                        urlLogoComplete || ""
+                        urlLogoComplete
                     );
 
                     // 2. Créer les dossiers méta pour chaque Article de la boutique
@@ -87,12 +97,11 @@ if (fs.existsSync(cheminIndexVendeurs)) {
 
                             const dossierArticle = path.join(__dirname, 'Article', boutique.id_boutique, idArticleValide);
                             
-                            // 🌟 Résolution de l'image de l'article vers data/images/
                             let urlImageComplete = article.image;
                             if (urlImageComplete && !urlImageComplete.startsWith('http')) {
                                 urlImageComplete = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${article.image}`;
                             } else if (!urlImageComplete) {
-                                urlImageComplete = urlLogoComplete || `https://gogamenetiqui.github.io/Go-Buznes/assets/default-preview.jpg`;
+                                urlImageComplete = urlLogoComplete;
                             }
 
                             genererFichierMeta(
@@ -125,17 +134,26 @@ if (fs.existsSync(cheminIndexAnnonces)) {
                 if (annonce && annonce.id_annonce) {
                     const dossierAnnonce = path.join(__dirname, 'Annonce', annonce.id_annonce);
                     
-                    // 🌟 Résolution de l'image de l'annonce vers data/images/
-                    let urlAnnonceImage = annonce.image;
-                    if (urlAnnonceImage && !urlAnnonceImage.startsWith('http')) {
-                        urlAnnonceImage = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${annonce.image}`;
+                    // 🌟 MULTI-SCAN ANNONCES : Cherche 'image', 'affiche' ou 'image_url'
+                    let nomImageAnnonce = annonce.image || annonce.affiche || annonce.image_url || "";
+                    let urlAnnonceImage = "";
+
+                    if (nomImageAnnonce) {
+                        if (nomImageAnnonce.startsWith('http')) {
+                            urlAnnonceImage = nomImageAnnonce;
+                        } else {
+                            urlAnnonceImage = `https://gogamenetiqui.github.io/Go-Buznes/data/images/${nomImageAnnonce}`;
+                        }
+                    } else {
+                        // Fallback si aucune image d'annonce : utilise un visuel par défaut
+                        urlAnnonceImage = `https://gogamenetiqui.github.io/Go-Buznes/assets/default-preview.jpg`;
                     }
 
                     genererFichierMeta(
                         dossierAnnonce, 
                         `📢 Annonce - ${annonce.titre || "Go Buznes"}`, 
                         annonce.description || "Consultez cette annonce importante sur Go Buznes Goma.", 
-                        urlAnnonceImage || ""
+                        urlAnnonceImage
                     );
                 }
             }
