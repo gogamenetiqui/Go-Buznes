@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go Buznes</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="./manifest.json">
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('🚀 Go Buznes PWA prête et active !'))
+        .catch(err => console.log('⚠️ Échec de configuration PWA :', err));
+    });
+      </script>
     <style>
         :root {
             --bg-color: #ffffff;          /* Blanc pur du nouveau logo */
