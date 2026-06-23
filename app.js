@@ -1084,7 +1084,7 @@ window.basculerFormulaireNetiqui = function(typeFormulaire) {
  */
 window.soumettreFormulaireNetiqui = function(typeFormulaire) {
     // Numéro officiel de gestion Go Buznes | Netiqui à remplacer par le tien si besoin
-    const numeroGestion = "+243976663953"; 
+    const numeroGestion = "+243998159146"; 
     let messageWhatsApp = "";
 
     if (typeFormulaire === 'boutique') {
