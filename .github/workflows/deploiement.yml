@@ -1,0 +1,58 @@
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Récupérer le code source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Configurer Node.js
+        uses: actions/checkout@v4
+        # On s'assure d'avoir l'environnement Node.js requis pour l'obfuscation
+        with:
+          node-version: '20'
+
+      - name: 📦 Installer les outils de sécurité
+        run: |
+          npm init -y
+          npm install javascript-obfuscator
+
+      - name: ⚙️ Exécuter la génération et l'obfuscation
+        run: |
+          node obfuscate.js
+
+      - name: 🔑 Configurer la clé SSH de destination
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: "${{ secrets.REPOMIROIRCLE }}"
+
+      - name: 🚀 Commit les modifications et pousser vers le dépôt public
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          
+          git config --global user.name "Netiqui Bot Production"
+          git config --global user.email "bot@netiqui.com"
+          
+          # On ajoute tous les dossiers virtuels (Article, Boutique) et les fichiers JS modifiés
+          git add -A
+          
+          # On fait un commit local de la version sécurisée (si des modifications ont eu lieu)
+          git commit -m "Chiffrement de sécurité et génération des dossiers de partage [skip ci]" || echo "Aucune modification à commiter"
+          
+          git remote remove miroir || true
+          git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
+          
+          BRANCH_ACTUELLE=$(git branch --show-current)
+          echo "🚀 Branche de déploiement détectée : $BRANCH_ACTUELLE"
+          
+          # Poussée forcée de la version finale sécurisée vers la production
+          GITSSHCOMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCHACTUELLE:$BRANCHACTUELLE --force -v
+          
