@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+  workflow_dispatch: {}
 
 jobs:
   build-and-deploy:
@@ -16,44 +17,72 @@ jobs:
           fetch-depth: 0
 
       - name: 🟢 Configurer Node.js
-        uses: actions/checkout@v4
-        # On s'assure d'avoir l'environnement Node.js requis pour l'obfuscation
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: 📦 Installer les outils de sécurité
         run: |
-          npm init -y
-          npm install javascript-obfuscator
+          npm ci --no-audit --no-fund || (npm init -y && npm install javascript-obfuscator)
 
       - name: ⚙️ Exécuter la génération et l'obfuscation
         run: |
+          # Adaptez la commande si votre script diffère
           node obfuscate.js
 
-      - name: 🔑 Configurer la clé SSH de destination
+      - name: 🔑 Charger la clé SSH de destination
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: "${{ secrets.REPO_MIROIR_CLE }}"
 
-      - name: 🚀 Commit les modifications et pousser vers le dépôt public
+      - name: 🚀 Pousser uniquement les artefacts (branche orphan dans un répertoire temporaire)
+        env:
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=accept-new"
         run: |
+          set -euo pipefail
+
+          # trouver le répertoire d'artefacts attendu
+          if [ -d "dist" ]; then
+            ARTIFACT_DIR="dist"
+          elif [ -d "build" ]; then
+            ARTIFACT_DIR="build"
+          elif [ -d "obfuscated" ]; then
+            ARTIFACT_DIR="obfuscated"
+          else
+            echo "Aucun répertoire d'artefacts trouvé (dist, build, obfuscated)." >&2
+            echo "Contenu du workspace:" && ls -la
+            exit 1
+          fi
+
+          echo "➡️ Artefacts détectés dans: $ARTIFACT_DIR"
+
+          # préparer known_hosts (sécurité)
           mkdir -p ~/.ssh
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          
-          git config --global user.name "Netiqui Bot Production"
-          git config --global user.email "bot@netiqui.com"
-          
-          # On ajoute tous les dossiers virtuels (Article, Boutique) et les fichiers JS modifiés
-          git add -A
-          
-          # On fait un commit local de la version sécurisée (si des modifications ont eu lieu)
-          git commit -m "Chiffrement de sécurité et génération des dossiers de partage [skip ci]" || echo "Aucune modification à commiter"
-          
-          git remote remove miroir || true
-          git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
-          
-          BRANCH_ACTUELLE=$(git branch --show-current)
-          echo "🚀 Branche de déploiement détectée : $BRANCH_ACTUELLE"
-          
-          # Poussée forcée de la version finale sécurisée vers la production
-          GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts || true
+
+          # créer un répertoire temporaire propre et copier les artefacts
+          TMPDIR=$(mktemp -d)
+          echo "Création du répertoire temporaire: $TMPDIR"
+          cp -R "${ARTIFACT_DIR}/." "$TMPDIR/"
+
+          cd "$TMPDIR"
+
+          # initialiser un repo propre, committer seulement les artefacts
+          git init
+          git config user.name "Netiqui Bot Production"
+          git config user.email "bot@netiqui.com"
+
+          # ajouter remote miroir (vérifiez l'URL ci-dessous)
+          MIRROR_REPO="git@github.com:gogamenetiqui/Go-Buznes.git"
+          git remote add mirror "$MIRROR_REPO"
+
+          git add .
+          git commit -m "Deploy obfuscated build [skip ci]" || echo "Aucun changement à commiter"
+
+          # pousser sur la branche main du miroir (force) ; changez la cible si besoin
+          echo "Pushing to $MIRROR_REPO (branch: main)"
+          $GIT_SSH_COMMAND git push --force mirror HEAD:main -v
+
+          # nettoyage
+          cd -
+          rm -rf "$TMPDIR" || true
