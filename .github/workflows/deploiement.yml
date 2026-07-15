@@ -1,3 +1,5 @@
+name: Production, Sécurisation et Synchronisation
+
 on:
   push:
     branches:
@@ -14,8 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: 🟢 Configurer Node.js
-        uses: actions/checkout@v4
-        # On s'assure d'avoir l'environnement Node.js requis pour l'obfuscation
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
@@ -28,10 +29,32 @@ jobs:
         run: |
           node obfuscate.js
 
+      - name: 🗂 Générer automatiquement le sitemap
+        run: |
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+
+          # Page principale
+          echo '<url><loc>https://gogamenetiqui.github.io/Go-Buznes/</loc><priority>1.0</priority></url>' >> sitemap.xml
+
+          # Toutes les pages HTML générées
+          for file in $(find . -name "*.html"); do
+            url="https://gogamenetiqui.github.io/Go-Buznes/${file#./}"
+            echo "<url><loc>$url</loc><priority>0.8</priority></url>" >> sitemap.xml
+          done
+
+          # Toutes les images
+          for img in $(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \)); do
+            url="https://gogamenetiqui.github.io/Go-Buznes/${img#./}"
+            echo "<url><loc>$url</loc><priority>0.5</priority></url>" >> sitemap.xml
+          done
+
+          echo '</urlset>' >> sitemap.xml
+
       - name: 🔑 Configurer la clé SSH de destination
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: "${{ secrets.REPOMIROIRCLE }}"
+          ssh-private-key: "${{ secrets.REPO_MIROIR_CLE }}"
 
       - name: 🚀 Commit les modifications et pousser vers le dépôt public
         run: |
@@ -41,11 +64,10 @@ jobs:
           git config --global user.name "Netiqui Bot Production"
           git config --global user.email "bot@netiqui.com"
           
-          # On ajoute tous les dossiers virtuels (Article, Boutique) et les fichiers JS modifiés
+          # On ajoute tous les dossiers virtuels (Article, Boutique), les fichiers JS modifiés et le sitemap
           git add -A
           
-          # On fait un commit local de la version sécurisée (si des modifications ont eu lieu)
-          git commit -m "Chiffrement de sécurité et génération des dossiers de partage [skip ci]" || echo "Aucune modification à commiter"
+          git commit -m "Chiffrement + génération sitemap automatique [skip ci]" || echo "Aucune modification à commiter"
           
           git remote remove miroir || true
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
@@ -53,6 +75,4 @@ jobs:
           BRANCH_ACTUELLE=$(git branch --show-current)
           echo "🚀 Branche de déploiement détectée : $BRANCH_ACTUELLE"
           
-          # Poussée forcée de la version finale sécurisée vers la production
-          GITSSHCOMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCHACTUELLE:$BRANCHACTUELLE --force -v
-          
+          GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
