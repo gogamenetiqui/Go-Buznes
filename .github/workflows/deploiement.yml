@@ -53,6 +53,12 @@ jobs:
 
           echo '</urlset>' >> sitemap.xml
 
+      - name: 🤖 Générer automatiquement le robots.txt
+        run: |
+          echo "User-agent: *" > robots.txt
+          echo "Allow: /" >> robots.txt
+          echo "Sitemap: https://gogamenetiqui.github.io/Go-Buznes/sitemap.xml" >> robots.txt
+
       - name: 🔑 Configurer la clé SSH de destination
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -66,10 +72,10 @@ jobs:
           git config --global user.name "Netiqui Bot Production"
           git config --global user.email "bot@netiqui.com"
           
-          # On ajoute tous les dossiers virtuels (Article, Boutique), les fichiers JS modifiés et le sitemap
+          # On ajoute tous les dossiers virtuels (Article, Boutique), les fichiers JS modifiés, le sitemap et le robots.txt
           git add -A
           
-          git commit -m "Chiffrement + génération sitemap automatique [skip ci]" || echo "Aucune modification à commiter"
+          git commit -m "Chiffrement + génération sitemap & robots.txt [skip ci]" || echo "Aucune modification à commiter"
           
           git remote remove miroir || true
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
@@ -78,3 +84,4 @@ jobs:
           echo "🚀 Branche de déploiement détectée : $BRANCH_ACTUELLE"
           
           GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
+          
