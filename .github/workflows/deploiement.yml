@@ -1,4 +1,4 @@
-name: Production, Sécurisation et Synchronisatio
+name: Production, Sécurisation et Synchronisation
 
 on:
   push:
@@ -33,24 +33,17 @@ jobs:
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
-
-          # Page principale
           echo '<url><loc>https://gogamenetiqui.github.io/Go-Buznes/</loc><priority>1.0</priority></url>' >> sitemap.xml
-
-          # Toutes les pages HTML générées
           for file in $(find . -name "*.html"); do
             clean_path=$(echo "${file#./}" | sed 's/ /%20/g')
             url="https://gogamenetiqui.github.io/Go-Buznes/$clean_path"
             echo "<url><loc>$url</loc><priority>0.8</priority></url>" >> sitemap.xml
           done
-
-          # Toutes les images
           for img in $(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \)); do
             clean_path=$(echo "${img#./}" | sed 's/ /%20/g')
             url="https://gogamenetiqui.github.io/Go-Buznes/$clean_path"
             echo "<url><loc>$url</loc><priority>0.5</priority></url>" >> sitemap.xml
           done
-
           echo '</urlset>' >> sitemap.xml
 
       - name: 🤖 Générer automatiquement le robots.txt
@@ -59,47 +52,18 @@ jobs:
           echo "Allow: /" >> robots.txt
           echo "Sitemap: https://gogamenetiqui.github.io/Go-Buznes/sitemap.xml" >> robots.txt
 
-      - name: 📑 Générer automatiquement Schema.org JSON-LD
+      - name: 📑 Injecter Schema.org JSON-LD dans les pages
         run: |
-          mkdir -p schema
-          # Générer des fichiers JSON-LD pour chaque boutique
           for file in $(find Boutique -name "*.html"); do
             name=$(basename "$file" .html)
-            cat <<EOF > schema/${name}.json
-            {
-              "@context": "https://schema.org",
-              "@type": "Store",
-              "name": "${name}",
-              "url": "https://gogamenetiqui.github.io/Go-Buznes/$file",
-              "image": "https://gogamenetiqui.github.io/Go-Buznes/images/${name}.jpg",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Goma",
-                "addressCountry": "CD"
-              }
-            }
-EOF
+            jq_schema='{"@context":"https://schema.org","@type":"Store","name":"'"$name"'","url":"https://gogamenetiqui.github.io/Go-Buznes/'"$file"'"}'
+            # insérer juste avant </head>
+            sed -i "s#</head>#<script type=\"application/ld+json\">$jq_schema</script></head>#" "$file"
           done
-
-          # Générer des fichiers JSON-LD pour chaque article
           for file in $(find Article -name "*.html"); do
             name=$(basename "$file" .html)
-            cat <<EOF > schema/${name}.json
-            {
-              "@context": "https://schema.org",
-              "@type": "Product",
-              "name": "${name}",
-              "url": "https://gogamenetiqui.github.io/Go-Buznes/$file",
-              "image": "https://gogamenetiqui.github.io/Go-Buznes/images/${name}.jpg",
-              "offers": {
-                "@type": "Offer",
-                "url": "https://gogamenetiqui.github.io/Go-Buznes/$file",
-                "priceCurrency": "USD",
-                "price": "0.00",
-                "availability": "https://schema.org/InStock"
-              }
-            }
-EOF
+            jq_schema='{"@context":"https://schema.org","@type":"Product","name":"'"$name"'","url":"https://gogamenetiqui.github.io/Go-Buznes/'"$file"'"}'
+            sed -i "s#</head>#<script type=\"application/ld+json\">$jq_schema</script></head>#" "$file"
           done
 
       - name: 🔑 Configurer la clé SSH de destination
@@ -111,19 +75,11 @@ EOF
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          
           git config --global user.name "Netiqui Bot Production"
           git config --global user.email "bot@netiqui.com"
-          
-          # On ajoute tous les dossiers virtuels (Article, Boutique), les fichiers JS modifiés, le sitemap, le robots.txt et les fichiers Schema.org
           git add -A
-          
-          git commit -m "Chiffrement + sitemap + robots.txt + schema.org [skip ci]" || echo "Aucune modification à commiter"
-          
+          git commit -m "Déploiement + sitemap + robots.txt + schema.org [skip ci]" || echo "Aucune modification à commiter"
           git remote remove miroir || true
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
-          
           BRANCH_ACTUELLE=$(git branch --show-current)
-          echo "🚀 Branche de déploiement détectée : $BRANCH_ACTUELLE"
-          
           GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
