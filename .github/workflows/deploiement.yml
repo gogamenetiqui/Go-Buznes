@@ -39,13 +39,15 @@ jobs:
 
           # Toutes les pages HTML générées
           for file in $(find . -name "*.html"); do
-            url="https://gogamenetiqui.github.io/Go-Buznes/${file#./}"
+            clean_path=$(echo "${file#./}" | sed 's/ /%20/g')
+            url="https://gogamenetiqui.github.io/Go-Buznes/$clean_path"
             echo "<url><loc>$url</loc><priority>0.8</priority></url>" >> sitemap.xml
           done
 
           # Toutes les images
           for img in $(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \)); do
-            url="https://gogamenetiqui.github.io/Go-Buznes/${img#./}"
+            clean_path=$(echo "${img#./}" | sed 's/ /%20/g')
+            url="https://gogamenetiqui.github.io/Go-Buznes/$clean_path"
             echo "<url><loc>$url</loc><priority>0.5</priority></url>" >> sitemap.xml
           done
 
