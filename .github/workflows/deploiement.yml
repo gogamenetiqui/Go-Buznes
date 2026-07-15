@@ -59,6 +59,49 @@ jobs:
           echo "Allow: /" >> robots.txt
           echo "Sitemap: https://gogamenetiqui.github.io/Go-Buznes/sitemap.xml" >> robots.txt
 
+      - name: 📑 Générer automatiquement Schema.org JSON-LD
+        run: |
+          mkdir -p schema
+          # Générer des fichiers JSON-LD pour chaque boutique
+          for file in $(find Boutique -name "*.html"); do
+            name=$(basename "$file" .html)
+            cat <<EOF > schema/${name}.json
+            {
+              "@context": "https://schema.org",
+              "@type": "Store",
+              "name": "${name}",
+              "url": "https://gogamenetiqui.github.io/Go-Buznes/$file",
+              "image": "https://gogamenetiqui.github.io/Go-Buznes/images/${name}.jpg",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Goma",
+                "addressCountry": "CD"
+              }
+            }
+EOF
+          done
+
+          # Générer des fichiers JSON-LD pour chaque article
+          for file in $(find Article -name "*.html"); do
+            name=$(basename "$file" .html)
+            cat <<EOF > schema/${name}.json
+            {
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": "${name}",
+              "url": "https://gogamenetiqui.github.io/Go-Buznes/$file",
+              "image": "https://gogamenetiqui.github.io/Go-Buznes/images/${name}.jpg",
+              "offers": {
+                "@type": "Offer",
+                "url": "https://gogamenetiqui.github.io/Go-Buznes/$file",
+                "priceCurrency": "USD",
+                "price": "0.00",
+                "availability": "https://schema.org/InStock"
+              }
+            }
+EOF
+          done
+
       - name: 🔑 Configurer la clé SSH de destination
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -72,10 +115,10 @@ jobs:
           git config --global user.name "Netiqui Bot Production"
           git config --global user.email "bot@netiqui.com"
           
-          # On ajoute tous les dossiers virtuels (Article, Boutique), les fichiers JS modifiés, le sitemap et le robots.txt
+          # On ajoute tous les dossiers virtuels (Article, Boutique), les fichiers JS modifiés, le sitemap, le robots.txt et les fichiers Schema.org
           git add -A
           
-          git commit -m "Chiffrement + génération sitemap & robots.txt [skip ci]" || echo "Aucune modification à commiter"
+          git commit -m "Chiffrement + sitemap + robots.txt + schema.org [skip ci]" || echo "Aucune modification à commiter"
           
           git remote remove miroir || true
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
@@ -84,4 +127,3 @@ jobs:
           echo "🚀 Branche de déploiement détectée : $BRANCH_ACTUELLE"
           
           GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
-          
