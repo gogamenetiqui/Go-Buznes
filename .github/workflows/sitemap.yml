@@ -10,7 +10,7 @@ jobs:
   build-sitemap:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Récupérer le code source
+      - name: 📥 Récupérer le code source privé
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -23,7 +23,7 @@ jobs:
           # Page principale
           echo '<url><loc>https://gogamenetiqui.github.io/Go-Buznes/</loc><priority>1.0</priority></url>' >> sitemap.xml
 
-          # Toutes les pages HTML générées
+          # Toutes les pages HTML générées (dans le repo privé après obfuscation)
           for file in $(find . -name "*.html"); do
             url="https://gogamenetiqui.github.io/Go-Buznes/${file#./}"
             echo "<url><loc>$url</loc><priority>0.8</priority></url>" >> sitemap.xml
@@ -37,26 +37,11 @@ jobs:
 
           echo '</urlset>' >> sitemap.xml
 
-      - name: 🔑 Configurer la clé SSH de destination
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: "${{ secrets.REPO_MIROIR_CLE }}"
-
-      - name: 🚀 Commit et pousser le sitemap
+      - name: 🔑 Commit et pousser le sitemap dans le repo privé
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          
           git config --global user.name "Netiqui Bot Sitemap"
           git config --global user.email "bot@netiqui.com"
           
           git add sitemap.xml
           git commit -m "Mise à jour automatique du sitemap [skip ci]" || echo "Aucune modification à commiter"
-          
-          git remote remove miroir || true
-          git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
-          
-          BRANCH_ACTUELLE=$(git branch --show-current)
-          echo "🚀 Branche de déploiement détectée : $BRANCH_ACTUELLE"
-          
-          GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force -v
+          git push origin HEAD
