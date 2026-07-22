@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "github": {
+    "enabled": true,
+    "silent": false,
+    "autoJobCancelation": true
+  }
+}
