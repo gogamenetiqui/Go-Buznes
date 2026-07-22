@@ -1,12 +1,15 @@
 {
   "name": "go-buznes-secure",
-  "version": "1.0.0.2",
   "description": "Système de synchronisation et obfuscation",
   "main": "obfuscate.js",
   "scripts": {
     "build": "node obfuscate.js"
   },
   "devDependencies": {
-    "javascript-obfuscator": "^4.1.1"
-  }
+    "javascript-obfuscator": "^4.2.2"
+  },
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
