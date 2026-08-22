@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Politique de confidentialité - Go Buznes</title>
+
+    <meta name="description"
+        content="Go Buznes ne vend, ne lou et ne commercialise aucune de vos données personnelles à des tiers">
+    <meta name="keywords"
+        content="Go Buznes, Marché éléctronique RDC, Boutiques Goma, Commerce en ligne Kinshasa, Netiqui product, annonce masisi">
+    <meta name="author" content="Netiqui Rédac">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gogamenetiqui.github.io/Go-Buznes/blog/politique_de_confidentialite.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gogamenetiqui.github.io/Go-Buznes/blog/politique_de_confidentialite.html">
+    <meta property="og:title" content="Politique de Confidentialité - Go Buznes">
+    <meta property="og:title" content="La présente politique de confidentialité décrit la manière dont Go Buznes...">
+    <meta property="og:image" content="assets/gobuznes_logo.png">
+    <meta property="og:locale" content="fr_FR">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Politique de confidentialité Go Buznes">
+    <meta name="twitter:descrition" content="Trouvez les meilleurs offres et services en RDC">
+    <meta name="twitter:image" content="assets/gobuznes_b.png">
+
+    <meta name="article-title" content="Politique de confidentialité">
+    <meta name="article-subtitle" content="Comment les données collectées sont utilisées sur Go Buznes">
+    <meta name="article-author" content="Netiqui Rédac">
+    <meta name="article-date" content="2026-08-06">
+    <meta name="article-category" content="Document Officiel">
+    <meta name="article-readtime" content="">
+    <meta name="article-image" content="assets/gobuznes_b.png">
+    <meta name="article-description"
+        content="La présente politique de confidentialité décrit la manière dont nous collectons, utilisons et protegons vos donnes">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .info-header {
+            padding: 40px 0 30px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .info-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-blue);
+            background: var(--card-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .info-header h1,
+        #doc-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .info-header .last-updated,
+        #last-updated {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 50px;
+            align-items: start;
+            margin-bottom: 80px;
+        }
+
+        .info-summary {
+            position: sticky;
+            top: 100px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+        }
+
+        .info-summary h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .info-summary ul {
+            list-style: none;
+        }
+
+        .info-summary ul li {
+            margin-bottom: 8px;
+        }
+
+        .info-summary ul li a {
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.2s ease;
+            display: block;
+            line-height: 1.4;
+        }
+
+        .info-summary ul li a:hover {
+            color: var(--primary-blue);
+        }
+
+        .info-article-body {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: #334155;
+            max-width: 780px;
+        }
+
+        .info-article-body h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 40px 0 16px 0;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .info-article-body h2:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .info-article-body p {
+            margin-bottom: 18px;
+        }
+
+        .info-article-body ul,
+        .info-article-body ol {
+            margin: 0 0 20px 24px;
+        }
+
+        .info-article-body li {
+            margin-bottom: 8px;
+        }
+
+        .info-article-body .callout-note {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 16px 20px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: 25px 0;
+            font-size: 0.95rem;
+            color: #166534;
+        }
+
+        @media (max-width: 900px) {
+            .info-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .info-summary {
+                position: static;
+            }
+
+            .info-header h1 {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+        <div id="app-breadcrumb"></div>
+
+        <head class="info-header">
+            <div class="info-header-badge">
+                <i class="fa-solid fa-file-contract"></i> Document Officiel
+            </div>
+            <h1 id="doc-title">Politique de confidentialité - Go Buznes</h1>
+            <div class="last-updated" id="last-updated">
+                <i class="fa-regular fa-clock"></i> Dernière mise à jour : 06 août 2026 - Rédigé par Netiqui Rédac
+            </div>
+        </head>
+
+        <div class="info-layout">
+            <nav class="info-summary">
+                <h3>Sur cette page</h3>
+                <ul>
+                    <li><a href="#section-0">Introduction</a></li>
+                    <li><a href="#section-1">1. Collecte des données</a></li>
+                    <li><a href="#section-2">2. Utilisation des données</a></li>
+                    <li><a href="#section-3">3. Partage des données</a></li>
+                    <li><a href="#section-4">4. Sécurité des données</a></li>
+                    <li><a href="#section-5">5. Vos droit</a></li>
+                </ul>
+            </nav>
+
+            <article class="info-article-body">
+                <p>
+                    Bienvenu sur <strong>Go Buznes</strong>, la marketplace congolaise éditée par la société
+                    <strong>Netiqui</strong>. En accédant à notre site web ou à nos applications mobiles, vous acceptez
+                    de
+                    vous conformers au présente politique de confidentialité
+                </p>
+
+                <div class="callout-note">
+                    <i class="fa-solid fa-circle-info"></i><strong>Note importante</strong> L'utilisation des services
+                    Go
+                    Buznes implique l'acceptations sans réserve du contenu de ce document. Veillez le lire
+                    attentivement.
+                </div>
+
+                <h2 id="section-0">Introduction</h2>
+                <p>
+                    la présente politique de confidentialité décrit la manière dont Go Buznes collecte, utilise et
+                    protège
+                    les informations personnelles des utilisateurs lorsqu'ils utilisent la plateforme, le site web et
+                    l'application mobile.
+                </p>
+
+                <h2 id="section-1">1. Collecte des données</h2>
+                <p>
+                    Nous collectons uniquement les informations nécessaires au bon fonctionnement de nos services :
+                <ul>
+                    <li>Informations fournies directement :</li> Nom, prénom, adresse e-mail, numéro de téléphone, nom
+                    de la
+                    boutique ou entreprse.
+                    <li>Données d'utilisation :</li> Adresse IP, type d'appareil, données de navigation et statistiques
+                    de
+                    consultation des articles ou boutiques.
+                    <li>Données de géolocalisation :</li> si vous l'autorisez, nous collectons votre position pour
+                    afficher
+                    les boutiques et événement à proximité (Goma, Bukavu, Masisi, Uvira, etc.)
+                </ul>
+                </p>
+                <h2 id="section-2">2. Utilisation des données</h2>
+                <p>
+                    Vos données sont utilisée pour :
+                <ul>
+                    <li>Fournir et améliorer nos services de mise en relation locale</li>
+                    <li>Permettre la publication et la gestion des fiches boutiques et des articles</li>
+                    <li>Assurer la sécurité de la plateforme et prévenir les fraudes.</li>
+                    <li>Vous contacter en cas de besoin téchnique ou d'assistance</li>
+                </ul>
+                </p>
+                <h2 id="section-3">3. Partage des données</h2>
+                <p>
+                    Go Buznes ne vend, ne loue et ne commercialise aucune de vos données personnelles à des tiers. les
+                    données peuvent être partagées que dans le cas suivants :
+                <ul>
+                    <li>Avec votre accord explicite.</li>
+                    <li>Pour répondre à des obligations légales imposées par les autorités compétentes</li>
+                </ul>
+                </p>
+                <h2 id="section-4">4. Sécurité des données</h2>
+                <p>
+                    Nous mettons en ouvre des mesures de sécurité techniques et organisationnelles appropriées pour
+                    protéger
+                    vos données contre tout accès non autorisé, altération, divulgation ou destruction.
+                </p>
+                <h2 id="section-5">5. Vos droits</h2>
+                <p>
+                    Conformément à la réflementation en vigueur, vos disposez d'un droit d'accès, de rectification, de
+                    suppression et d'opposition concernant vos données personnelles. Pour exercer ces droits, contacter
+                    nous
+                    à <a href="contact.netiqui@gmail.com">[contact.netiqui@gmail.com]</a>
+                </p>
+            </article>
+        </div>
+        <div id="dynamic-promo-box" style="margin-bottom: 40px;"></div>
+
+        <div id="app-cta-banner"></div>
+    </main>
+
+    <div id="app-footer"></div>
+
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,1 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Tous nos Articles & Actualités - Go Buznes</title>
+    <meta name="article-title" content="Nos Articles & Actualités">
+    <meta name="description"
+        content="Découvrez les boutiques, services, événement et actualités à Goma, Bukavu et en RDC sur Go Buznes">
+    <meta name="keywords"
+        content="Go Buznes, marketplace Goma, boutiques Bukavu, buznes RDC, Netiqui, Buznes, Commerce local, annonce Goma">
+    <meta name="author" content="Netiqui Rédac">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gogamenetiqui.github.io/Go-Buznes/blog/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gogamenetiqui.github.io/Go-Buznes/blog/index.html">
+    <meta property="og:title" content="Go Buznes - Connecter le commerce en RDC">
+    <meta property="og:description"
+        content="Trouvez meilleurs boutiques, activités et opportunités d'affaires dans votre ville.">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Go Buznes - Commerce connecter RDC">
+    <meta name="twitter:description" content="Trouvez les meilleurs affaires de votre ville">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .catalog-hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            margin-bottom: 40px;
+        }
+
+        .catalog-hero p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, ninmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .article-card-item {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .article-card-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--bg-light);
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-category-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-blue);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-date {
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer-btn {
+            align-self: flex-start;
+            background: var(--bg-light);
+            color: var(--primary-blue);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .article-card-item:hover .card-footer-btn {
+            background: var(--primary-blue);
+            color: #ffffff;
+            border-color: var(--primary-blue);
+        }
+
+        .catalog-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 0;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div id="app-header"></div>
+        <main class="container">
+        <div id="app-breadcrumb"></div>
+
+        <section class="catalog-hero">
+            <h1>Bienvenue sur le Blog Go Buznes</h1>
+            <p>
+                Go Buznes est la marketplace de référence en RDC qui connecte les boutiques locales, les services et les opportunités commerciales avec les utilisateurs de chaque ville. Découvrez nos derniers articles, guides et actualités.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">Dernières publications</h2>
+            <div id="articles-catalog-grid" class="articles-grid">
+                <div class="catalog-loading">
+                    <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+                    <p style="margin-top: 10px;">Chargement des articles en cours...</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="dynamic-promo-box" style="margin-bottom: 40px;"></div>
+
+        <div id="app-cta-banner"></div>
+    </main>
+
+    <div id="app-footer"></div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const gridContainer = document.getElementById('articles-catalog-grid');
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+
+            if (!CONFIG || !CONFIG.articleFiles || !Array.isArray(CONFIG.articleFiles)) {
+                gridContainer.innerHTML = '<p class="catalog-loading">Aucun article configuré.</p>';
+                return;
+            }
+
+            // Exclure ce fichier lui-même de la liste des cartes
+            const filesToScan = CONFIG.articleFiles.filter(file => file !== currentPath);
+            const articlesData = [];
+
+            for (const file of filesToScan) {
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) continue;
+
+                    const htmlText = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+
+                    // Ex
+                    const title = doc.querySelector('meta[name="article-title"]')?.content || doc.title;
+                    const description = doc.querySelector('meta[name="article-description"]')?.content || 'Lire la suite de cet article sur Go Buznes.';
+                    const image = doc.querySelector('meta[name="article-image"]')?.content || 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80';
+                    const category = doc.querySelector('meta[name="article-category"]')?.content || 'Actualité';
+                    const date = doc.querySelector('meta[name="article-date"]')?.content || 'Récent';
+
+                    articlesData.push({
+                        file,
+                        title,
+                        description,
+                        image,
+                        category,
+                        date
+                    });
+                } catch (err) {
+                    console.warn("Fichier non trouvé ou ignoré lors du scan : " + file);
+                }
+            }
+
+            if (articlesData.length === 0) {
+                gridContainer.innerHTML = '<p class="catalog-loading">Aucun article disponible pour le moment.</p>';
+                return;
+            }
+
+            // Génération dynamique des cartes HTML
+            gridContainer.innerHTML = articlesData.map(item => `
+                <article class="article-card-item">
+                    <div class="card-img-wrapper">
+                        <img src="${item.image}" alt="${item.title}" loading="lazy">
+                        <span class="card-category-badge">${item.category}</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date">
+                            <i class="fa-regular fa-calendar-days"></i> ${item.date}
+                        </div>
+                        <h3 class="card-title">${item.title}</h3>
+                        <p class="card-desc">${item.description}</p>
+                        <a href="${item.file}" class="card-footer-btn">
+                            Lire l'article <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+        });
+    </script>
+</body>
+</html>
