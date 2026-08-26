@@ -1,28 +1,29 @@
 name: Generate Sitemap for Blog
+
 on:
   push:
-    branches: [ main ]   # Remplacez par 'master' si c'est votre branche par défaut
-  workflow_dispatch:     # Permet un lancement manuel depuis l'onglet Actions
+    branches:
+      - main          # ou 'master' 
+    paths:
+      - 'blog/**'     # Se déclenche seulement si des fichiers sous blog/ sont modifiés
+  workflow_dispatch:  # Permet un lancement manuel depuis l'onglet Actions
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout du code
+      - name: Checkout du code source
         uses: actions/checkout@v4
 
       - name: Générer le sitemap
         uses: cicirello/generate-sitemap@v1
         with:
-          # URL de base (doit correspondre exactement à l'emplacement des fichiers)
-          base-url-path: https://github.com/netiquiofficial/Go-Buznes/blog/
-          # Dossier à scanner (relatif à la racine du dépôt)
-          paths: ./Go-Buznes/blog
-          # Emplacement de sortie du fichier sitemap.xml
-          path: ./Go-Buznes/blog/sitemap.xml
+          base-url-path: https://gogamenetiqui.github.io/Go-Buznes/blog/
+          paths: ./blog                # Dossier à scanner
+          path: ./blog/sitemap.xml     # Fichier de sortie
 
-      - name: Upload du sitemap (vérification)
+      - name: (Optionnel) Vérification - upload de l'artéfact
         uses: actions/upload-artifact@v4
         with:
-          name: sitemap-file
-          path: ./Go-Buznes/blog/sitemap.xml
+          name: sitemap
+          path: ./blog/sitemap.xml
