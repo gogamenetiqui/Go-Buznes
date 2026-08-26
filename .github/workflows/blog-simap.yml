@@ -1,29 +1,58 @@
-name: Generate Sitemap for Blog
+name: Generate and Push Sitemap for Blog
 
 on:
   push:
     branches:
-      - main          # ou 'master' 
+      - main
+      - master
     paths:
-      - 'blog/**'     # Se déclenche seulement si des fichiers sous blog/ sont modifiés
-  workflow_dispatch:  # Permet un lancement manuel depuis l'onglet Actions
+      - 'blog/**'          # Ne se déclenche que si des fichiers dans blog/ sont modifiés
+  workflow_dispatch:       # Permet un lancement manuel
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout du code source
+      - name: 📥 Récupérer le code source (dépôt privé)
         uses: actions/checkout@v4
-
-      - name: Générer le sitemap
-        uses: cicirello/generate-sitemap@v1
         with:
-          base-url-path: https://github.com/netiquiofficial/Go-Buznes/blog/
-          paths: ./blog                # Dossier à scanner
-          path: ./blog/sitemap.xml     # Fichier de sortie
+          fetch-depth: 0
 
-      - name: (Optionnel) Vérification - upload de l'artéfact
-        uses: actions/upload-artifact@v4
+      - name: 🗂 Générer le sitemap dans le dossier blog/
+        run: |
+          cd blog
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+          echo '<url><loc>https://gogamenetiqui.github.io/Go-Buznes/blog/</loc><priority>1.0</priority></url>' >> sitemap.xml
+          # Ajouter toutes les pages HTML
+          for file in $(find . -name "*.html"); do
+            clean_path=$(echo "${file#./}" | sed 's/ /%20/g')
+            url="https://gogamenetiqui.github.io/Go-Buznes/blog/$clean_path"
+            echo "<url><loc>$url</loc><priority>0.8</priority></url>" >> sitemap.xml
+          done
+          # Ajouter les images
+          for img in $(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \)); do
+            clean_path=$(echo "${img#./}" | sed 's/ /%20/g')
+            url="https://gogamenetiqui.github.io/Go-Buznes/blog/$clean_path"
+            echo "<url><loc>$url</loc><priority>0.5</priority></url>" >> sitemap.xml
+          done
+          echo '</urlset>' >> sitemap.xml
+          cd ..
+
+      - name: 🔑 Configurer la clé SSH de destination
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          name: sitemap
-          path: ./blog/sitemap.xml
+          ssh-private-key: "${{ secrets.REPO_MIROIR_CLE }}"
+
+      - name: 🚀 Pousser le sitemap vers le dépôt public
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          git config --global user.name "Netiqui Bot Sitemap"
+          git config --global user.email "bot@netiqui.com"
+          git add blog/sitemap.xml
+          git commit -m "Mise à jour du sitemap [skip ci]" || echo "Aucune modification"
+          git remote remove miroir || true
+          git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
+          BRANCH_ACTUELLE=$(git branch --show-current)
+          GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force
