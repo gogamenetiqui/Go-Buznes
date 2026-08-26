@@ -18,7 +18,7 @@ jobs:
       - name: Générer le sitemap
         uses: cicirello/generate-sitemap@v1
         with:
-          base-url-path: https://gogamenetiqui.github.io/Go-Buznes/blog/
+          base-url-path: https://github.com/netiquiofficial/Go-Buznes/blog/
           paths: ./blog                # Dossier à scanner
           path: ./blog/sitemap.xml     # Fichier de sortie
 
