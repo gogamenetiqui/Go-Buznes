@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Go Buznes Studio v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--blue:#0046ad;--dark:#18202a;--muted:#667085;--bg:#f5f7fa;--line:#dfe3e8;--red:#d93025;--green:#18864b;--orange:#e67e22}
+*{box-sizing:border-box;font-family:Roboto,sans-serif}body{margin:0;background:var(--bg);color:var(--dark)}
+.app{display:flex;min-height:100vh}.side{width:235px;background:#fff;border-right:1px solid var(--line);padding:18px;position:sticky;top:0;height:100vh}
+.brand{font-size:20px;font-weight:700;color:var(--blue);margin:8px 4px 25px}.nav button{width:100%;border:0;background:none;text-align:left;padding:12px;border-radius:8px;cursor:pointer;color:#4b5563;margin:2px 0}.nav button.active,.nav button:hover{background:#eaf2ff;color:var(--blue)}
+.main{flex:1;padding:24px;max-width:1400px;margin:auto}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}.top h1{margin:0;font-size:24px}.status{font-size:13px;padding:8px 12px;border-radius:20px;background:#fff;border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}.stat b{display:block;font-size:28px;margin-top:5px}.muted{color:var(--muted);font-size:13px}
+.panel{margin-top:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.panel-head h2{font-size:16px;margin:0}
+.btn{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:500;display:inline-flex;gap:8px;align-items:center}.primary{background:var(--blue);color:#fff}.outline{background:#fff;border:1px solid var(--line)}.danger{background:var(--red);color:#fff}.success{background:var(--green);color:#fff}
+input,select,textarea{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;outline:none}textarea{min-height:100px;resize:vertical}.form{display:grid;grid-template-columns:1fr 1fr;gap:13px}.full{grid-column:1/-1}.label{font-size:12px;color:var(--muted);margin-bottom:5px;display:block}
+.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:11px 8px;border-bottom:1px solid #eee;font-size:13px}.table th{color:var(--muted);font-weight:500}.actions{display:flex;gap:6px;flex-wrap:wrap}
+.hidden{display:none!important}.search{max-width:360px}.toast{position:fixed;right:20px;bottom:20px;background:#18202a;color:white;padding:13px 16px;border-radius:8px;display:none;z-index:10}
+.drop{border:1px dashed #b8c0cc;padding:14px;border-radius:8px}.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.thumb{padding:6px 8px;background:#edf3ff;border-radius:6px;font-size:11px}
+.log{background:#101820;color:#d9e2ec;border-radius:8px;padding:12px;min-height:100px;max-height:220px;overflow:auto;font:12px monospace;white-space:pre-wrap}
+@media(max-width:850px){.side{width:70px;padding:10px}.brand{font-size:0}.brand:after{content:"GB";font-size:18px}.nav span{display:none}.grid{grid-template-columns:1fr 1fr}.form{grid-template-columns:1fr}.main{padding:14px}}
+@media(max-width:550px){.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="brand">GO BUZNES</div>
+<div class="nav">
+<button class="active" data-page="dashboard"><i class="fa-solid fa-chart-line"></i> <span>Tableau de bord</span></button>
+<button data-page="shops"><i class="fa-solid fa-store"></i> <span>Boutiques</span></button>
+<button data-page="posts"><i class="fa-solid fa-bullhorn"></i> <span>Annonces</span></button>
+<button data-page="settings"><i class="fa-solid fa-gear"></i> <span>GitHub</span></button>
+</div>
+</aside>
+
+<main class="main">
+<div class="top">
+<h1 id="pageTitle">Go Buznes Studio v2</h1>
+<div class="status" id="githubStatus">● GitHub non connecté</div>
+</div>
+
+<section id="dashboard">
+<div class="grid">
+<div class="card stat"><span class="muted">Boutiques</span><b id="statShops">0</b></div>
+<div class="card stat"><span class="muted">Annonces</span><b id="statPosts">0</b></div>
+<div class="card stat"><span class="muted">Images indexées</span><b id="statImages">0</b></div>
+<div class="card stat"><span class="muted">Modifications</span><b id="statChanges">0</b></div>
+</div>
+<div class="panel">
+<div class="panel-head"><h2>Publication</h2><button class="btn primary" onclick="syncGitHub()"><i class="fa-solid fa-cloud-arrow-up"></i> Synchroniser</button></div>
+<p class="muted">Le Studio prépare les changements puis les publie dans data/ sur GitHub.</p>
+<div id="dashboardLog" class="log">Aucune opération.</div>
+</div>
+</section>
+
+<section id="shops" class="hidden">
+<div class="panel">
+<div class="panel-head"><h2>Boutiques</h2><div class="actions"><input id="shopSearch" class="search" placeholder="Rechercher..." oninput="renderShops()"><button class="btn primary" onclick="newShop()"><i class="fa-solid fa-plus"></i> Nouvelle boutique</button></div></div>
+<table class="table"><thead><tr><th>Boutique</th><th>Fichier</th><th>Articles</th><th>Actions</th></tr></thead><tbody id="shopTable"></tbody></table>
+</div>
+</section>
+
+<section id="posts" class="hidden">
+<div class="panel">
+<div class="panel-head"><h2>Annonces</h2><div class="actions"><input id="postSearch" class="search" placeholder="Rechercher..." oninput="renderPosts()"><button class="btn primary" onclick="newPost()"><i class="fa-solid fa-plus"></i> Nouvelle annonce</button></div></div>
+<table class="table"><thead><tr><th>ID</th><th>Annonceur</th><th>Dates</th><th>Images</th><th>Actions</th></tr></thead><tbody id="postTable"></tbody></table>
+</div>
+</section>
+
+<section id="settings" class="hidden">
+<div class="panel">
+<div class="panel-head"><h2>Connexion GitHub</h2><button class="btn primary" onclick="connectGitHub()"><i class="fa-solid fa-plug"></i> Connecter</button></div>
+<div class="form">
+<div><label class="label">Owner / utilisateur</label><input id="ghOwner" placeholder="netiquiofficial"></div>
+<div><label class="label">Repository</label><input id="ghRepo" placeholder="Go-Buznes"></div>
+<div><label class="label">Branche</label><input id="ghBranch" value="main"></div>
+<div><label class="label">Token GitHub</label><input id="ghToken" type="password" placeholder="github_pat_..."></div>
+<div class="full"><label class="label">Clé GBZ actuelle</label><input id="gbzKey" value="NetiquiGoBuznesGoma2026SecurityKeyStrict"></div>
+</div>
+<p class="muted">Le token reste dans cette page et n'est pas envoyé à un serveur tiers.</p>
+</div>
+</section>
+
+<section id="editor" class="hidden">
+<div class="panel">
+<div class="panel-head"><h2 id="editorTitle">Éditeur</h2><div class="actions"><button class="btn outline" onclick="closeEditor()">Annuler</button><button class="btn primary" onclick="saveEditor()">Enregistrer</button></div></div>
+<div id="shopEditor" class="hidden">
+<div class="form">
+<div><label class="label">ID boutique</label><input id="shop-id"></div>
+<div><label class="label">Nom</label><input id="shop-name"></div>
+<div><label class="label">Téléphone WhatsApp</label><input id="shop-phone"></div>
+<div><label class="label">Adresse</label><input id="shop-address"></div>
+<div><div class="label">Logo</div><input type="file" id="shop-logo-file" accept="image/*"></div>
+<div><label class="label">Nom du logo existant</label><input id="shop-logo-filename"></div>
+<div><label class="label">Badge</label><select id="badge-type"><option value="">Standard</option><option value="or">Partenaire Or</option><option value="bleu">Vérifié</option></select></div>
+<div><label class="label">Expiration badge</label><input type="date" id="badge-expiry" value="2026-12-31"></div>
+<div class="full"><label class="label">Articles</label><div id="articleList"></div></div>
+<div class="full"><button class="btn outline" onclick="addArticleRow()"><i class="fa-solid fa-plus"></i> Ajouter un article</button></div>
+</div>
+</div>
+<div id="postEditor" class="hidden">
+<div class="form">
+<div><label class="label">ID annonce</label><input id="post-id"></div>
+<div><label class="label">Annonceur</label><input id="post-advertiser"></div>
+<div><label class="label">Type de lien</label><select id="post-link-type"><option value="interne">Interne</option><option value="externe">Externe</option></select></div>
+<div><label class="label">Cible</label><input id="post-link-target"></div>
+<div><label class="label">Date début</label><input type="date" id="post-start-date"></div>
+<div><label class="label">Date fin</label><input type="date" id="post-end-date"></div>
+<div class="full"><label class="label">Description</label><textarea id="post-description"></textarea></div>
+<div class="full drop"><label class="label">Ajouter/remplacer les images (max 3)</label><input type="file" id="post-images-files" accept="image/*" multiple><div id="postImages"></div></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULTS={owner:"netiquiofficial",repo:"Go-Buznes",branch:"main",key:"NetiquiGoBuznesGoma2026SecurityKeyStrict"};
+let cfg={...DEFAULTS}, shops=[], posts=[], images=[], pending=[], editorMode=null, editorIndex=-1, originalPath="", connected=false;
+
+const $=id=>document.getElementById(id);
+function toast(m){$("toast").textContent=m;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",3000)}
+function log(m){$("dashboardLog").textContent+=(($("dashboardLog").textContent==="Aucune opération.")?"":"\n")+m}
+function apiUrl(path){return `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${path}?ref=${encodeURIComponent(cfg.branch)}`}
+function headers(){return {Authorization:`Bearer ${cfg.token}`,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}}
+
+/* === SYSTÈME DE CHIFFREMENT / DÉCHIFFREMENT GBZ === */
+function b64ToBytes(b64){const bin=atob(b64.replace(/\s/g,""));const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return a}
+function bytesToB64(bytes){let s="";for(let i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(s)}
+function xorBytes(bytes,key){const k=new TextEncoder().encode(key),o=new Uint8Array(bytes.length);for(let i=0;i<bytes.length;i++)o[i]=bytes[i]^k[i%k.length];return o}
+function decodeGbz(b64){const x=xorBytes(b64ToBytes(b64),cfg.key);return JSON.parse(new TextDecoder().decode(x))}
+function encodeGbz(obj){const bytes=new TextEncoder().encode(JSON.stringify(obj,null,2));return bytesToB64(xorBytes(bytes,cfg.key))}
+
+async function ghGet(path){const r=await fetch(apiUrl(path),{headers:headers()});if(!r.ok)throw new Error(`${r.status} ${path}`);return r.json()}
+async function ghPut(path,content,message,sha=null){const body={message,content,branch:cfg.branch};if(sha)body.sha=sha;const r=await fetch(apiUrl(path),{method:"PUT",headers:{...headers(),"Content-Type":"application/json"},body:JSON.stringify(body)});if(!r.ok)throw new Error(`${r.status} ${path}: ${await r.text()}`);return r.json()}
+async function ghDelete(path,sha,message){const r=await fetch(apiUrl(path),{method:"DELETE",headers:{...headers(),"Content-Type":"application/json"},body:JSON.stringify({message,sha,branch:cfg.branch})});if(!r.ok)throw new Error(`${r.status} ${path}: ${await r.text()}`);return r.json()}
+
+async function connectGitHub(){
+ cfg.owner=$("ghOwner").value.trim();cfg.repo=$("ghRepo").value.trim();cfg.branch=$("ghBranch").value.trim()||"main";cfg.token=$("ghToken").value.trim();cfg.key=$("gbzKey").value;
+ if(!cfg.owner||!cfg.repo||!cfg.token){toast("Owner, dépôt et token sont requis.");return}
+ try{const r=await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}`,{headers:headers()});if(!r.ok)throw new Error("Connexion GitHub refusée.");connected=true;$("githubStatus").textContent="● GitHub connecté";$("githubStatus").style.color="var(--green)";toast("GitHub connecté.");await loadRemote();}catch(e){connected=false;$("githubStatus").textContent="● Connexion échouée";toast(e.message)}}
+
+async function readIndex(path){
+ try{return await ghGet(path)}catch(e){if(String(e.message).startsWith("404"))return {content:bytesToB64(new TextEncoder().encode("[]")),sha:null,path};throw e}
+}
+async function loadRemote(){
+ shops=[];posts=[];images=[];
+ const si=await readIndex("data/vendeurs/index_vendeurs.json");const ai=await readIndex("data/adpost/index_annonces.json");
+ const shopPaths=JSON.parse(new TextDecoder().decode(b64ToBytes(si.content)));
+ const postPaths=JSON.parse(new TextDecoder().decode(b64ToBytes(ai.content)));
+ for(const path of shopPaths){try{const f=await ghGet(path);shops.push({path,sha:f.sha,data:decodeGbz(f.content)});}catch(e){log("Erreur boutique: "+path)}}
+ for(const path of postPaths){try{const f=await ghGet(path);posts.push({path,sha:f.sha,data:decodeGbz(f.content)});}catch(e){log("Erreur annonce: "+path)}}
+ renderAll();toast(`${shops.length} boutiques et ${posts.length} annonces chargées.`)
+}
+function renderAll(){renderShops();renderPosts();$("statShops").textContent=shops.length;$("statPosts").textContent=posts.length;$("statChanges").textContent=pending.length}
+function renderShops(){const q=($("shopSearch")?.value||"").toLowerCase();$("shopTable").innerHTML=shops.filter(s=>JSON.stringify(s.data).toLowerCase().includes(q)).map((s,i)=>`<tr><td><b>${esc(s.data.nom||s.data.id_boutique)}</b><br><span class="muted">${esc(s.data.id_boutique||"")}</span></td><td>${esc(s.path)}</td><td>${(s.data.articles||[]).length}</td><td class="actions"><button class="btn outline" onclick="editShop(${i})">Modifier</button><button class="btn danger" onclick="deleteShop(${i})">Supprimer</button></td></tr>`).join("")||`<tr><td colspan="4">Aucune boutique.</td></tr>`}
+function renderPosts(){const q=($("postSearch")?.value||"").toLowerCase();$("postTable").innerHTML=posts.filter(p=>JSON.stringify(p.data).toLowerCase().includes(q)).map((p,i)=>`<tr><td>${esc(p.data.id_annonce||"")}</td><td>${esc(p.data.annonceur||"")}</td><td>${esc(p.data.date_debut||"")} → ${esc(p.data.date_fin||"")}</td><td>${(p.data.images||[]).length}</td><td class="actions"><button class="btn outline" onclick="editPost(${i})">Modifier</button><button class="btn danger" onclick="deletePost(${i})">Supprimer</button></td></tr>`).join("")||`<tr><td colspan="5">Aucune annonce.</td></tr>`}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function showPage(id){document.querySelectorAll("main>section").forEach(s=>s.classList.add("hidden"));$(id).classList.remove("hidden");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));$("pageTitle").textContent=id==="dashboard"?"Go Buznes Studio v2":id==="shops"?"Gestion des boutiques":id==="posts"?"Gestion des annonces":"Connexion GitHub"}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+
+function newShop(){editorMode="shop";editorIndex=-1;originalPath="";$("editorTitle").textContent="Nouvelle boutique";$("shopEditor").classList.remove("hidden");$("postEditor").classList.add("hidden");clearShop();showPage("editor")}
+function editShop(i){editorMode="shop";editorIndex=i;originalPath=shops[i].path;$("editorTitle").textContent="Modifier la boutique";$("shopEditor").classList.remove("hidden");$("postEditor").classList.add("hidden");fillShop(shops[i].data);showPage("editor")}
+function clearShop(){["shop-id","shop-name","shop-phone","shop-address","shop-logo-filename"].forEach(x=>$(x).value="");$("badge-type").value="";$("badge-expiry").value="2026-12-31";$("articleList").innerHTML=""}
+function fillShop(d){$("shop-id").value=d.id_boutique||"";$("shop-name").value=d.nom||"";$("shop-phone").value=d.telephone||"";$("shop-address").value=d.adresse||"";$("shop-logo-filename").value=d.logo_entreprise||"";$("badge-type").value=d.badge?.type||"";$("badge-expiry").value=d.badge?.expire_le||"2026-12-31";$("articleList").innerHTML="";(d.articles||[]).forEach(a=>addArticleRow(a))}
+function addArticleRow(a={}){const div=document.createElement("div");div.className="card";div.style.marginBottom="8px";div.dataset.article="1";div.innerHTML=`<div class="form"><div><label class="label">ID article</label><input data-k="id_article" value="${esc(a.id_article||"")}"></div><div><label class="label">Désignation</label><input data-k="designation" value="${esc(a.designation||"")}"></div><div><label class="label">Prix USD</label><input data-k="prix" value="${esc(a.prix||"")}"></div><div><label class="label">Image</label><input data-k="image" value="${esc(a.image||"")}"></div></div><button class="btn danger" style="margin-top:8px" onclick="this.parentElement.remove()">Supprimer</button>`;$("articleList").appendChild(div)}
+
+function collectShop(){
+ const id=$("shop-id").value.trim(),name=$("shop-name").value.trim(),phone=$("shop-phone").value.trim(),address=$("shop-address").value.trim();
+ if(!id||!name||!phone||!address)throw Error("ID, nom, téléphone et adresse sont obligatoires.");
+ let logo=$("shop-logo-filename").value.trim(); if($("shop-logo-file").files[0]) logo="logo_"+safe(id)+".jpg";
+ const articles=[...document.querySelectorAll("#articleList>[data-article]")].map((el,i)=>{const o={};el.querySelectorAll("[data-k]").forEach(x=>o[x.dataset.k]=x.value.trim());if(!o.id_article)o.id_article=(o.designation||"article").toLowerCase().replace(/[^a-z0-9]/g,"_")+"_"+Date.now()+"_"+i;o.devise=o.devise||"USD";return o});
+ return {type_fichier:"boutique",id_boutique:id,nom:name,telephone:phone,adresse:address,logo_entreprise:logo,badge:{type:$("badge-type").value,expire_le:$("badge-expiry").value||"2026-12-31"},articles}
+}
+
+function newPost(){editorMode="post";editorIndex=-1;originalPath="";$("editorTitle").textContent="Nouvelle annonce";$("postEditor").classList.remove("hidden");$("shopEditor").classList.add("hidden");["post-id","post-advertiser","post-link-target","post-start-date","post-end-date","post-description"].forEach(x=>$(x).value="");$("post-link-type").value="interne";$("post-images-files").value="";$("postImages").textContent="";showPage("editor")}
+function editPost(i){editorMode="post";editorIndex=i;originalPath=posts[i].path;$("editorTitle").textContent="Modifier l'annonce";$("postEditor").classList.remove("hidden");$("shopEditor").classList.add("hidden");const d=posts[i].data;$("post-id").value=d.id_annonce||"";$("post-advertiser").value=d.annonceur||"";$("post-link-type").value=d.type_lien||"interne";$("post-link-target").value=d.cible_lien||"";$("post-start-date").value=d.date_debut||"";$("post-end-date").value=d.date_fin||"";$("post-description").value=d.description||"";$("postImages").textContent=(d.images||[]).join(", ");showPage("editor")}
+function collectPost(){return {type_fichier:"annonce",id_annonce:$("post-id").value.trim(),annonceur:$("post-advertiser").value.trim(),type_lien:$("post-link-type").value,cible_lien:$("post-link-target").value.trim(),date_debut:$("post-start-date").value,date_fin:$("post-end-date").value,images:editorIndex>=0?(posts[editorIndex].data.images||[]):[],description:$("post-description").value.trim()}}
+function closeEditor(){showPage(editorMode==="shop"?"shops":"posts")}
+
+function saveEditor(){
+ if(!connected){toast("Connecte GitHub avant d'enregistrer.");return}
+ try{
+  if(editorMode==="shop"){
+   const d=collectShop();const path=`data/vendeurs/${safe(d.id_boutique)}.gbz`;
+   queue({op:editorIndex<0?"create":"update",path,oldPath:originalPath,data:d,kind:"shop"});
+   if(editorIndex<0)shops.push({path,sha:null,data:d});else shops[editorIndex]={...shops[editorIndex],path,data:d};
+  }else{
+   const d=collectPost();if(!d.id_annonce||!d.annonceur||!d.description||!d.date_debut||!d.date_fin){toast("Champs annonce incomplets.");return}
+   const path=`data/adpost/${safe(d.id_annonce)}.gbz`;
+   queue({op:editorIndex<0?"create":"update",path,oldPath:originalPath,data:d,kind:"post"});
+   if(editorIndex<0)posts.push({path,sha:null,data:d});else posts[editorIndex]={...posts[editorIndex],path,data:d};
+  }
+  renderAll();closeEditor();toast("Modification préparée. Cliquez sur Synchroniser.");
+ }catch(e){toast(e.message)}
+}
+
+function queue(x){pending=pending.filter(p=>!(p.kind===x.kind&&p.path===x.path));pending.push(x);$("statChanges").textContent=pending.length}
+
+async function syncGitHub(){
+ if(!connected){toast("Connecte GitHub.");return}
+ if(!pending.length){toast("Aucune modification.");return}
+ log("Synchronisation...");
+ try{
+  for(const p of pending){
+   if(p.op==="delete"){const f=await ghGet(p.path);await ghDelete(p.path,f.sha,"Go Buznes Studio: suppression "+p.path);log("✓ supprimé "+p.path);continue}
+   if(p.oldPath&&p.oldPath!==p.path){try{const old=await ghGet(p.oldPath);await ghDelete(p.oldPath,old.sha,"Go Buznes Studio: déplacement");}catch(e){}}
+   let sha=null;try{sha=(await ghGet(p.path)).sha}catch(e){}
+   await ghPut(p.path,encodeGbz(p.data),`Go Buznes Studio: ${p.op} ${p.path}`,sha);log("✓ "+p.path)
+  }
+  await rebuildIndexes();await processImages();pending=[];$("statChanges").textContent=0;toast("Synchronisation terminée.");log("✓ Publication terminée.");await loadRemote()
+ }catch(e){log("✗ "+e.message);toast("Erreur: "+e.message)}
+}
+
+async function rebuildIndexes(){
+ const shopIndex=shops.map(s=>s.path).filter((v,i,a)=>a.indexOf(v)===i).sort();
+ const postIndex=posts.map(p=>p.path).filter((v,i,a)=>a.indexOf(v)===i).sort();
+ await putJsonIndex("data/vendeurs/index_vendeurs.json",shopIndex);
+ await putJsonIndex("data/adpost/index_annonces.json",postIndex);
+ log("✓ index_vendeurs.json");log("✓ index_annonces.json");
+}
+async function putJsonIndex(path,data){
+ const content=bytesToB64(new TextEncoder().encode(JSON.stringify(data,null,2)+"\n"));let sha=null;try{sha=(await ghGet(path)).sha}catch(e){}
+ await ghPut(path,content,"Go Buznes Studio: mise à jour "+path,sha)
+}
+async function processImages(){
+ const files=[...($("shop-logo-file").files||[]),...($("post-images-files").files||[])];
+ for(const file of files){const name=safe(file.name.replace(/\s+/g,"_"));const bytes=new Uint8Array(await file.arrayBuffer());let sha=null;try{sha=(await ghGet("data/images/"+name)).sha}catch(e){}await ghPut("data/images/"+name,bytesToB64(bytes),"Go Buznes Studio: image "+name,sha);log("✓ image "+name)}
+}
+function safe(s){return s.toLowerCase().trim().replace(/[^a-z0-9._-]/g,"_").replace(/_+/g,"_")}
+function deleteShop(i){if(!confirm("Supprimer cette boutique du dépôt ?"))return;const p=shops[i];queue({op:"delete",path:p.path,kind:"shopDelete",deleteRef:p});shops.splice(i,1);renderAll();toast("Suppression préparée. Synchronise pour publier.")}
+function deletePost(i){if(!confirm("Supprimer cette annonce du dépôt ?"))return;const p=posts[i];queue({op:"delete",path:p.path,kind:"postDelete",deleteRef:p});posts.splice(i,1);renderAll();toast("Suppression préparée. Synchronise pour publier.")}
+
+$("ghOwner").value=localStorage.gbzOwner||DEFAULTS.owner;$("ghRepo").value=localStorage.gbzRepo||DEFAULTS.repo;$("ghBranch").value=localStorage.gbzBranch||DEFAULTS.branch;$("gbzKey").value=localStorage.gbzKey||DEFAULTS.key;
+$("ghToken").value="";
+["ghOwner","ghRepo","ghBranch","gbzKey"].forEach(id=>$(id).addEventListener("change",()=>localStorage.setItem(id.replace("gh","gbz"),$(id).value)));
+</script>
+</body>
+</html>
