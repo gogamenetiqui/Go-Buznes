@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page non trouvée - Go-Buznes</title>
+    <style>
+        /* --- STYLES MODERNES POUR VOTRE PAGE 404 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 60px 50px;
+            border-radius: 40px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6);
+            max-width: 650px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 120px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 40px rgba(247, 151, 30, 0.3);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            background: #f7971e;
+            color: #0b1a2e;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 16px 45px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 0 #b35f00;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .btn-home:hover {
+            background: #ffd200;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 0 #b35f00;
+        }
+
+        .btn-home:active {
+            transform: translateY(5px);
+            box-shadow: 0 4px 0 #b35f00;
+        }
+
+        .emoji-big {
+            font-size: 60px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- Version mobile --- */
+        @media (max-width: 480px) {
+            .container { padding: 40px 25px; }
+            h1 { font-size: 80px; }
+            h2 { font-size: 22px; }
+            p { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="emoji-big">🔍</span>
+        <h1>404</h1>
+        <h2>Oups ! Cette page s'est perdue</h2>
+        <p>
+            Il semble que le chemin que vous avez emprunté ne mène nulle part.<br>
+            Mais pas de panique, même à Goma, on sait retrouver son chemin !
+        </p>
+        <a href="/Go-Buznes/" class="btn-home">🏠 Retour à l'accueil</a>
+    </div>
+</body>
+  </html>
