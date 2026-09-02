@@ -1,119 +1,241 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page non trouvée - Go-Buznes</title>
-    <style>
-        /* --- STYLES MODERNES POUR VOTRE PAGE 404 --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    <title>Page non trouvée - Go Buznes</title>
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
-            min-height: 100vh;
+    <meta name="robots" content="noindex, follow">
+    <meta name="article-title" content="Page Introuvable">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="blog/styles/styles.css">
+
+    <style>
+        .error-page-container {
+            min-height: 75vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        .container {
+        .error-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: var(--radius-lg);
+            padding: 50px 30px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 60px 50px;
-            border-radius: 40px;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.6);
-            max-width: 650px;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .container:hover {
-            transform: scale(1.02);
-        }
-
-        h1 {
-            font-size: 120px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 40px rgba(247, 151, 30, 0.3);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-
-        h2 {
             color: #ffffff;
-            font-size: 28px;
-            font-weight: 700;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.88);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anim-stage {
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
             margin-bottom: 15px;
-            letter-spacing: 1px;
         }
 
-        p {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 35px;
+        .delivery-van {
+            font-size: 3.2rem;
+            color: var(--primary-blue);
+            position:absolute;
+            animation: drive-and-explode 2.5s forwards ease-in-out;
         }
 
-        .btn-home {
-            display: inline-block;
-            background: #f7971e;
-            color: #0b1a2e;
+        .explosion-flash {
+            position: absolute;
+            font-size: 4rem;
+            color: #f97316;
+            opacity: 0;
+            transform: scale(0.2);
+            animation: boom 0.6s 1.8s forwards ease-out;
+        }
+
+        .brand-reveal {
+            opacity: 0;
+            transform: translateX(15px);
+            animation: reveal-logo 0.8s 2.3s forwards ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .brand-reveal .logo-badge {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid var(--primary-blue);
+            color: #ffffff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-reveal .code-404 {
+            font-size: 3.8rem;
+            font-weight: 800px;
+            line-height: 1;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes drive-and-explode {
+            0% { transform: translateX(-200px); opacity: 1;}
+            60% {transform: translateX(0) scale(1); opacity: 1;}
+            75% {transform: translateX(0) scale(1.3); opacity: 1;}
+            80% {transform: translateX(0) scale(0); opacity: 0;}
+            100% {transform: translateX(0) scale(0); opacity: 0;}
+        }
+
+        @keyframes boom {
+            0% { transform: scale(0.3); opacity: 0;}
+            50% { transform: scale(1.4); opacity: 1;}
+            100% { transform: scale(1.8); opacity: 0;}
+        }
+
+        @keyframes reveal-logo {
+            0% { opacity: 0; transform: translateY(15px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+
+        .error-card h1 {
+            font-size: 1.35rem;
             font-weight: 700;
-            font-size: 18px;
-            padding: 16px 45px;
-            border-radius: 60px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 0 #b35f00;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            color: #ffffff;
         }
 
-        .btn-home:hover {
-            background: #ffd200;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 0 #b35f00;
+        .error-card p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: 25px;
         }
 
-        .btn-home:active {
-            transform: translateY(5px);
-            box-shadow: 0 4px 0 #b35f00;
+        .error-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .emoji-big {
-            font-size: 60px;
-            display: block;
-            margin-bottom: 10px;
+        .btn-404-home {
+            background: var(--primary-blue);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease;
         }
 
-        /* --- Version mobile --- */
-        @media (max-width: 480px) {
-            .container { padding: 40px 25px; }
-            h1 { font-size: 80px; }
-            h2 { font-size: 22px; }
-            p { font-size: 16px; }
+        .btn-404-home:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-404-back {
+            background: rgba(255, 255, 255, 0.88);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+        }
+
+        .redirect-timer {
+            margin-top: 20px;
+            font-size: 0.72rem;
+            color: #64748b;
+            letter-spacing: 0.3px;
+        }
+
+        .redirect-timer span {
+            color: #94a3b8;
+            font-weight: 700;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <span class="emoji-big">🔍</span>
-        <h1>404</h1>
-        <h2>Oups ! Cette page s'est perdue</h2>
-        <p>
-            Il semble que le chemin que vous avez emprunté ne mène nulle part.<br>
-            Mais pas de panique, même à Goma, on sait retrouver son chemin !
-        </p>
-        <a href="/Go-Buznes/" class="btn-home">🏠 Retour à l'accueil</a>
-    </div>
+    <div id="app-header"></div>
+
+    <main class="container">
+        <div class="error-page-container">
+            <div class="error-card">
+                <div class="anim-stage">
+                    <i class="fa-solid fa-truck-fast delivery-van"></i>
+                    <i class="fa-solid fa-burst explosion-flash"></i>
+
+                    <div class="brand-reveal">
+                        <span class="logo-badge"><i class="fa-solid fa-bag-shopping brand-icon"></i> Go Buznes</span>
+                        <div class="code-404">4G4</div>
+                    </div>
+                </div>
+                <h1>Vous êtes au bon endroit... mais pas dans le bon coin !</h1>
+                <p>
+                    La livraison de cette page a rencontré un petit imprévu en chemin. La destination demandée n'existe
+                    plus ou a été déplacée.
+                </p>
+
+                <div class="erro-actions">
+                    <a href="index.html" class="btn-404-home">
+                        <i class="fa-solid fa-house"></i>Retour à l'acceuil
+                    </a>
+                    <button onclick="window.history.back();" class="btn-404-back">
+                        <i class="fa-solid fa-arrow-left"></i> Retour
+                    </button>
+                </div>
+
+                <div class="redirect-timer">
+                    Redirection dans <span id="404-countdown">10</span>s
+                </div>
+
+            </div>
+        </div>
+
+        <div id="dynamic-promo-box" style="margin-bottom: 40px;"></div>
+
+        <div id="app-cta-banner"></div>
+    </main>
+
+    <div id="app-footer"></div>
+
+    <script src="blog/scripts/config.js"></script>
+    <script src="blog/scripts/script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let seconds = 10;
+            const countdownEl = document.getElementById('404-countdown');
+
+            const timer = setInterval(() => {
+                seconds--;
+                if (countdownEl) countdownEl.textContent = seconds;
+
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    window.location.href = 'index.html';
+                }
+            }, 1000);
+        });
+    </script>
 </body>
-  </html>
+
+</html>
