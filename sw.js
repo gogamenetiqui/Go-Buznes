@@ -1,4 +1,4 @@
-const CACHE_NAME = 'go-buznes-cache-v1';
+const CACHE_NAME = 'go-buznes-cache-v2';
 const ASSETS = [
   './home.html',
   './index.html',
