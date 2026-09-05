@@ -39,20 +39,14 @@ jobs:
           echo '</urlset>' >> sitemap.xml
           cd ..
 
-      - name: 🔑 Configurer la clé SSH de destination
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: "${{ secrets.REPO_MIROIR_CLE }}"
-
-      - name: 🚀 Pousser le sitemap vers le dépôt public
+      - name: 💾 Commit sitemap dans le dépôt privé (origin)
+        env:
+          GIT_BRANCH: ${{ github.ref_name }}
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          git config --global user.name "Netiqui Bot Sitemap"
-          git config --global user.email "bot@netiqui.com"
+          # Le checkout persiste déjà les credentials par défaut (GITHUB_TOKEN) — le git push vers origin fonctionnera
+          git config user.name "Netiqui Bot Sitemap"
+          git config user.email "bot@netiqui.com"
           git add blog/sitemap.xml
-          git commit -m "Mise à jour du sitemap [skip ci]" || echo "Aucune modification"
-          git remote remove miroir || true
-          git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
-          BRANCH_ACTUELLE=$(git branch --show-current)
-          GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=accept-new" git push miroir $BRANCH_ACTUELLE:$BRANCH_ACTUELLE --force
+          git commit -m "Mise à jour du sitemap du blog [skip ci]" || echo "Aucune modification"
+          # Pousser vers origin (branche actuelle)
+          git push origin HEAD:$GIT_BRANCH
