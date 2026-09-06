@@ -1,0 +1,43 @@
+name: Générer articles.json depuis sitemap.xml
+
+on:
+  push:
+    paths:
+      - 'blog/sitemap.xml'   # Déclenchement uniquement si ce fichier change
+  workflow_dispatch:         # Permet un déclenchement manuel
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      - name: Extraire les noms des fichiers .html depuis sitemap.xml
+        run: |
+          # On suppose que sitemap.xml est dans blog/
+          # On utilise xmlstarlet ou un outil simple pour extraire les <loc>
+          # Sinon on utilise grep et sed (plus simple)
+          grep -o '<loc>[^<]*</loc>' blog/sitemap.xml | \
+          sed 's/<loc>//;s/<\/loc>//' | \
+          grep '\.html$' | \
+          sed 's:.*/::' > articles.txt
+
+      - name: Créer le fichier articles.json
+        run: |
+          # Lire articles.txt et construire un tableau JSON
+          echo '[' > blog/articles.json
+          while IFS= read -r line; do
+            echo "  \"$line\"," >> blog/articles.json
+          done < articles.txt
+          # Supprimer la dernière virgule et fermer le tableau
+          sed -i '$ s/,$//' blog/articles.json
+          echo ']' >> blog/articles.json
+
+      - name: Commit et push du fichier généré
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add blog/articles.json
+          git commit -m "Mise à jour automatique de articles.json" || exit 0
+          git push
