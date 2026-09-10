@@ -95,7 +95,9 @@ header {
     color: var(--primary-blue);
     font-weight: 600;
 }
-
+a {
+    color: var(--primary-blue);
+}
 .header-actions {
     display: flex;
     align-items: center;
@@ -255,7 +257,23 @@ header {
     background-color: var(--primary-blue);
     border-radius: 2px;
 }
-
+.section-subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 15px 0 7px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-muted);
+}
+.section-subtitle::after {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 24px;
+    background-color: var(--primary-blue);
+    border-radius: 2px;
+}
 .section-body {
     color: #475569;
     margin-bottom: 25px;
