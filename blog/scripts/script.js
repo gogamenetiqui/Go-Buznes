@@ -138,8 +138,8 @@ function renderFooter() {
                 </div>
 
                 <div class="footer-bottom">
-                    <div>© 2026 Go Buznes. Tous droits réservés.</div>
-                    <div>Développé avec <i class="fa-solid fa-heart" style="color: red;"></i> par <strong>Netiqui</strong></div>
+                    <div><a href="">© 2026 Go Buznes</a>. Tous droits réservés.</div>
+                    <div>Développé avec <i class="fa-solid fa-heart" style="color: var(--primary-blue);"></i> par <strong>Netiqui</strong></div>
                 </div>
             </div>
         </footer>
@@ -390,10 +390,10 @@ function renderCtaBanner() {
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <a href="${dev.contacts.whatsapp}" target="_blank" class="btn-blue" style="background: #25D366; color: white; border: none; font-size: 0.85rem; padding: 10px 16px; border-radius: var(--radius-md); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="${dev.contacts.whatsapp}" target="_blank" class="btn-blue" style="background: var(--primary-hover); color: white; border: none; font-size: 0.85rem; padding: 10px 16px; border-radius: var(--radius-md); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
                 <i class="fa-brands fa-whatsapp fa-lg"></i> Me contacter
             </a>
-            <a href="${dev.contacts.email}" class="btn-blue" style="background: white; color: var(--text-dark); border: 1px solid var(--border-color); font-size: 0.85rem; padding: 10px 16px; border-radius: var(--radius-md); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="${dev.contacts.email}" class="btn-blue" style="background: var(--bg-light); color: var(--text-dark); border: 1px solid var(--border-color); font-size: 0.85rem; padding: 10px 16px; border-radius: var(--radius-md); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
                 <i class="fa-regular fa-envelope fa-lg"></i> Email
             </a>
         </div>

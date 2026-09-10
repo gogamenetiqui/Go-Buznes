@@ -25,7 +25,7 @@ const CONFIG = {
 
     // Fichiers
     articleFiles: [
-        '',
+        'comment_vendre_en_ligne_en_rdc_sans_se_faire_arnaquer.html',
         'politique_de_confidentialite.html',
         'mentions_legales.html',
         'conditions_generales_utilisation.html',
