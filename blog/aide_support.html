@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre d'Aide & Support - Go Buznes</title>
+
+    <meta name="description" content="Centre d'Aide & Support Go Buznes">
+    <meta name="keywords"
+        content="centre d'aide Go Buznes, Go Buznes aide, GBz, Go Buznes Support, netiqui support go buznes">
+    <meta name="author" content="Netiqui Rédac">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gogamenetiqui.github.io/Go-Buznes/blog/aide_support.html">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/aide_styles.css">
+    <link rel="stylesheet" href="styles/doc_styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <div id="app-header"></div>
+    <main class="container">
+        <section class="help-hero">
+            <h1>Comment pouvons-nous vous aider ?</h1>
+            <p>
+                Découvrez nos services sur Go Buznes ou posez-nous directement votre question. Notre équipe basée à Goma
+                vousrépond rapidement.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">Nos Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-store"></i></div>
+                    <h3>Référencement Boutique</h3>
+                    <p>Créez votre vitrine numérique, présentez vos produits et touchez des milliers de clients dans
+                        votre ville.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Promotion d'Evénements</h3>
+                    <p>
+                        Publiez vos activités, conférences ou concerts pour booster la visibilité de vos événements
+                        locaux
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h3>Publicité & Bannères</h3>
+                    <p>
+                        Mettez en avant votre marque sur notre plateformet et nos articles spécialisés via nos espaces
+                        sponsorisées.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-headset"></i></div>
+                    <h3>Support & Accompagnement</h3>
+                    <p>
+                        Bénéficiez d'une assistance technique dédiée assurée par l'équipe Netiqui pour développer votre
+                        business.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="support-wrapper">
+
+            <div class="support-info">
+                <h3>Une question particulière ?</h3>
+                <p>
+                    Si votre préoccupation n'est pas traitée dans nos <a href="index.html">articles</a> ou que vous avez
+                    besoin d'une assistance sur-mesure, utilisez le formulaire ci-contre.
+                </p>
+
+                <div class="contact-channel-item">
+                    <i class="fa-brands fa-whatsapp" style="color: var(--primary-blue);"></i>
+                    <div>
+                        <strong>Assistance WhatsApp Directe</strong>
+                        <span>+243 998 159 146</span>
+                    </div>
+                </div>
+
+                <div class="contact-channel-item">
+                    <i class="fa-regular fa-envelope"></i>
+                    <div>
+                        <strong>Support par E-mail</strong>
+                        <span>contact.netiqui@gmail.com</span>
+                    </div>
+                </div>
+
+                <div class="contact-channel-item">
+                    <i class="fa-solid fa-clock"></i>
+                    <div>
+                        <strong>Heures d'ouverture</strong>
+                        <span>Lundi - Jeudi : 8h°° à 17h°° (CAT)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="support-form-card">
+                <h3>Envoyez-nous un message</h3>
+                <p>
+                    Remplissez le formulaire et chosissez votre canal d'envoi préféré :
+                </p>
+
+                <form id="help-support-form" onsubmit="return false">
+                    <div class="form-group">
+                        <label for="user-name">Votre Nom complet *</label>
+                        <input type="text" id="user-name" class="form-control" placeholder="Ex: Christian CM" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-subject">Sujet de votre demande *</label>
+                        <input type="text" id="user-subject" class="form-control"
+                            placeholder="Ex: Problème d'enregistrement, Partenariat..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-message">Description détaillée de votre problème *</label>
+                        <textarea id="user-message" class="form-control"
+                            placeholder="Expliquez en détail ce que vous rencontrez comme difficulté..."
+                            required></textarea>
+                    </div>
+
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px;">
+                        Envoyer via :
+                    </label>
+                    <div class="submit-options">
+                        <button type="button" class="btn-send btn-whatsapp" onclick="sendViaWhatsApp()">
+                            <i class="fa-brands fa-whatsapp fa-lg"></i> Envoyer sur WhatsApp
+                        </button>
+
+                        <button type="button" class="btn-send btn-email" onclick="sendViaEmail()">
+                            <i class="fa-regular fa-envelope fa-lg"></i> Envoyer par Email
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <div id="dynamic-promo-box" style="margin-bottom: 40px;"></div>
+        <div id="app-cta-banner"></div>
+    </main>
+    <div id="app-footer"></div>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

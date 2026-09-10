@@ -40,152 +40,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/styles.css">
-    <style>
-        .info-header {
-            padding: 40px 0 30px 0;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 40px;
-        }
-
-        .info-header-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--primary-blue);
-            background: var(--card-bg);
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-        }
-
-        .info-header h1,
-        #doc-title {
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: -0.5px;
-            margin-bottom: 10px;
-        }
-
-        .info-header .last-updated,
-        #last-updated {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .info-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 50px;
-            align-items: start;
-            margin-bottom: 80px;
-        }
-
-        .info-summary {
-            position: sticky;
-            top: 100px;
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 20px;
-        }
-
-        .info-summary h3 {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .info-summary ul {
-            list-style: none;
-        }
-
-        .info-summary ul li {
-            margin-bottom: 8px;
-        }
-
-        .info-summary ul li a {
-            font-size: 0.88rem;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.2s ease;
-            display: block;
-            line-height: 1.4;
-        }
-
-        .info-summary ul li a:hover {
-            color: var(--primary-blue);
-        }
-
-        .info-article-body {
-            font-size: 1.02rem;
-            line-height: 1.8;
-            color: #334155;
-            max-width: 780px;
-        }
-
-        .info-article-body h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin: 40px 0 16px 0;
-            padding-top: 20px;
-            border-top: 1px dashed var(--border-color);
-        }
-
-        .info-article-body h2:first-of-type {
-            margin-top: 0;
-            padding-top: 0;
-            border-top: none;
-        }
-
-        .info-article-body p {
-            margin-bottom: 18px;
-        }
-
-        .info-article-body ul,
-        .info-article-body ol {
-            margin: 0 0 20px 24px;
-        }
-
-        .info-article-body li {
-            margin-bottom: 8px;
-        }
-
-        .info-article-body .callout-note {
-            background: #f0fdf4;
-            border-left: 4px solid #16a34a;
-            padding: 16px 20px;
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
-            margin: 25px 0;
-            font-size: 0.95rem;
-            color: #166534;
-        }
-
-        @media (max-width: 900px) {
-            .info-layout {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .info-summary {
-                position: static;
-            }
-
-            .info-header h1 {
-                font-size: 1.9rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles/doc_styles.css">
 </head>
 
 <body>
@@ -199,7 +54,7 @@
             </div>
             <h1 id="doc-title">Politique de confidentialité - Go Buznes</h1>
             <div class="last-updated" id="last-updated">
-                <i class="fa-regular fa-clock"></i> Dernière mise à jour : 06 août 2026 - Rédigé par Netiqui Rédac
+                <i class="fa-regular fa-clock"></i> Dernière mise à jour : 09 septembre 2026 - Rédigé par Netiqui Rédac
             </div>
         </head>
 
@@ -218,10 +73,9 @@
 
             <article class="info-article-body">
                 <p>
-                    Bienvenu sur <strong>Go Buznes</strong>, la marketplace congolaise éditée par la société
-                    <strong>Netiqui</strong>. En accédant à notre site web ou à nos applications mobiles, vous acceptez
-                    de
-                    vous conformers au présente politique de confidentialité
+                    Bienvenu sur <strong>Go Buznes</strong>, la marketplace congolaise éditée par 
+                    <strong>Netiqui</strong>. En accédant à notre site web ou à nos applications mobiles et à l'ensemble de service Go Buznes, vous acceptez
+                    de vous conformers au présente politique de confidentialité
                 </p>
 
                 <div class="callout-note">
@@ -234,8 +88,7 @@
                 <h2 id="section-0">Introduction</h2>
                 <p>
                     la présente politique de confidentialité décrit la manière dont Go Buznes collecte, utilise et
-                    protège
-                    les informations personnelles des utilisateurs lorsqu'ils utilisent la plateforme, le site web et
+                    protège les informations personnelles des utilisateurs lorsqu'ils utilisent la plateforme, le site web et
                     l'application mobile.
                 </p>
 
@@ -281,10 +134,9 @@
                 </p>
                 <h2 id="section-5">5. Vos droits</h2>
                 <p>
-                    Conformément à la réflementation en vigueur, vos disposez d'un droit d'accès, de rectification, de
+                    Conformément à la réglementation en vigueur, vous disposez d'un droit d'accès, de rectification, de
                     suppression et d'opposition concernant vos données personnelles. Pour exercer ces droits, contacter
-                    nous
-                    à <a href="contact.netiqui@gmail.com">[contact.netiqui@gmail.com]</a>
+                    nous à <a href="contact.netiqui@gmail.com">[contact.netiqui@gmail.com]</a>
                 </p>
             </article>
         </div>
