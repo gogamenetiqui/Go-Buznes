@@ -5,7 +5,7 @@ const CONFIG = {
     // --- INFORMATIONS ---
     developer: {
         name: "Christian CM", 
-        role: "Concepteur & développeur Web / Mobile",
+        role: "Concepteur & Développeur Web / Mobile",
         photo: "assets/Christian_CM_20250625_101801_569~2.jpg",
         bio: "Conception de solutions numériques modernes, rapides et adaptées à tous.",
         skills: ["Web Design", "Apps Mobiles", "UI/UX", "SEO & Marketing"],
