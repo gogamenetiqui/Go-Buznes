@@ -5,7 +5,7 @@ const CONFIG = {
     // --- INFORMATIONS ---
     developer: {
         name: "Christian CM", 
-        role: "Concepteur & Développeur Web / Mobile",
+        role: "Concepteur & développeur Web / Mobile",
         photo: "assets/Christian_CM_20250625_101801_569~2.jpg",
         bio: "Conception de solutions numériques modernes, rapides et adaptées à tous.",
         skills: ["Web Design", "Apps Mobiles", "UI/UX", "SEO & Marketing"],
@@ -25,6 +25,7 @@ const CONFIG = {
 
     // Fichiers
     articleFiles: [
+        'creer-boutique-go-buznes-2026.html',
         'comment_vendre_en_ligne_en_rdc_sans_se_faire_arnaquer.html',
         'politique_de_confidentialite.html',
         'mentions_legales.html',
