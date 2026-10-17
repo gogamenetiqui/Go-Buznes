@@ -27,7 +27,7 @@ const CONFIG = {
     articleFiles: [
         'creer-boutique-go-buznes-2026.html',
         'comment_vendre_en_ligne_en_rdc_sans_se_faire_arnaquer.html',
-        'le_marche_numerique_qui_change_le_nord-kivu.html,
+        'le_marche_numerique_qui_change_le_nord-kivu.html',
         'politique_de_confidentialite.html',
         'mentions_legales.html',
         'conditions_generales_utilisation.html',
