@@ -1,6 +1,6 @@
 {
   "name": "go-buznes-secure",
-  "version": "1.0.0.2",
+  "version": "1.0.0.4",
   "description": "Système de synchronisation et obfuscation",
   "main": "obfuscate.js",
   "scripts": {
