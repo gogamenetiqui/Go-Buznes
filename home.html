@@ -1,61 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go Buznes • Le commerce connecté à Goma</title>
-<meta name="description" content="Découvrez les meilleures boutiques et articles disponibles à Goma. Créez votre boutique gratuitement et boostez vos ventes dès aujourd'hui !">
-<meta name="keywords" content="Go Buznes, Goma, commerce Goma, boutique Goma, vendre à Goma, Netiqui, Christian Chiruza, marketplace Kivu">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Netiqui Studio">
-<link rel="canonical" href="https://gogamenetiqui.github.io/Go-Buznes/home.html">
+    <title>Go Buznes | Acceuil</title>
+    <meta name="description"
+        content="La plateforme Go Buznes (site web et application mobile) est éditée et développée par La société Netiqui ayant Christian CM comme fondateur">
+    <meta name="keywords"
+        content="Go Buznes, Marché éléctronique RDC, Boutiques Goma, Commerce en ligne RDC, Netiqui product, annonce masisi, tech de l'EST RDC, Le commerce connecté Goma, Christian CM, Netiqui Studio app">
+    <meta name="author" content="Netiqui">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo_gbz.png">
+    <link rel="canonical" href="https://gogamenetiqui.github.io/Go-Buznes/">
 
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://gogamenetiqui.github.io/Go-Buznes/home.html">
-<meta property="og:title" content="Go Buznes • Le commerce connecté à Goma">
-<meta property="og:description" content="Découvrez les meilleures boutiques et articles disponibles à Goma. Créez votre boutique gratuitement et boostez vos ventes dès aujourd'hui !">
-<meta property="og:site_name" content="Go Buznes">
-<meta property="og:locale" content="fr_FR">
-
-<meta property="og:image" content="https://gogamenetiqui.github.io/Go-Buznes/data/images/logo_gbz.jpg">
-<meta property="og:image:secure_url" content="https://gogamenetiqui.github.io/Go-Buznes/data/images/logo_gbz.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Go Buznes • Goma">
-<meta name="twitter:description" content="La marketplace connectée de Goma.">
-<meta name="twitter:image" content="https://gogamenetiqui.github.io/Go-Buznes/data/images/logo_gbz.jpg">
-
-<meta name="theme-color" content="#0046ad">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="info_app.css">
-    <link rel="manifest" href="./manifest.json">
-
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(reg => console.log('🚀 Go Buznes PWA prête et active !'))
-        .catch(err => console.log('⚠️ Échec de configuration PWA :', err));
-    });
-  }
-</script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/info_app.css">
+    <link rel="stylesheet" href="styles/soutenir.css">
 </head>
 <body>
-
     <div class="app-container">
-        
         <header class="app-header">
             <div class="header-left">
                 <div class="logo-area">
-                    <i class="fa-solid fa-bag-shopping brand-icon"></i>
-                    <h1>Go <span>Buznes</span></h1>
+                    <div style="height: 10%; width: 10%;">
+                        <img src="assets/logo_gbz.png" alt="Gbz logo" class="brand-icon">
+                    </div>
+                    
+                    <h1> Go <span>Buznes</span></h1>
                 </div>
                 <p id="total-articles-display">Chargement des vitrines...</p>
             </div>
@@ -74,7 +48,7 @@
                         <i class="fa-solid fa-circle-check"></i>
                         <span id="count-blue">0</span>
                     </div>
-                    <div class="stat-mini standard" title="Boutiques Standards">
+                    <div class="stat-mini standard" title="Boutiques Standars">
                         <i class="fa-solid fa-store"></i>
                         <span id="count-none">0</span>
                     </div>
@@ -85,42 +59,26 @@
         <div class="search-wrapper" style="display: flex; align-items: center; gap: 8px;">
             <div class="search-bar-box" style="flex: 1;">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="main-search" placeholder="Rechercher un produit, une boutique à Goma...">
+                <input type="text" id="main-search" placeholder="Rechercher un produit, une boutique au Kivu...">
             </div>
-            <button id="btn-info-app" title="À propos de l'application">
+            <button id="btn-info-app" title="A propos de l'application">
                 <i class="fa-solid fa-circle-info"></i>
             </button>
         </div>
 
-        <main class="app-content" id="main-render">
-        </main>
+        <main class="app-content" id="main-render"></main>
 
         <nav class="bottom-navigation">
-            <button class="nav-tab active" data-page="home">
-                <i class="fa-solid fa-house"></i>
-                <span>Accueil</span>
-            </button>
-            <button class="nav-tab" data-page="stores">
-                <i class="fa-solid fa-store"></i>
-                <span>Boutiques</span>
-            </button>
-            <button class="nav-tab" data-page="vendre">
-                <i class="fa-solid fa-circle-plus"></i>
-                <span>Vendre</span>
-            </button>
-            <button class="nav-tab" data-page="biens">
-                <i class="fa-solid fa-box-open"></i>
-                <span>Biens</span>
-            </button>
-            <button class="nav-tab" data-page="profil">
-                <i class="fa-regular fa-user"></i>
-                <span>Profil</span>
-            </button>
+            <button class="nav-tab active" data-page="home"><i class="fa-solid fa-house"></i><span>Acceuil</span></button>
+            <button class="nav-tab" data-page="stores"><i class="fa-solid fa-store"></i><span>Boutiques</span></button>
+            <button class="nav-tab" data-page="vendre"><i class="fa-solid fa-circle-plus"></i><span>Vendre</span></button>
+            <button class="nav-tab" data-page="biens"><i class="fa-solid fa-box-open"></i><span>Biens</span></button>
+            <button class="nav-tab" data-page="profil"><i class="fa-regular fa-user"></i><span>Profil</span></button>
         </nav>
-
     </div>
 
     <script type="module" src="app.js"></script>
-    <script src="info_app.js"></script>
+    <script src="js/soutenir.js"></script>
+    <script src="js/info_app.js"></script>
 </body>
 </html>
