@@ -34,12 +34,12 @@ jobs:
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
           echo '<url><loc>https://gogamenetiqui.github.io/Go-Buznes/</loc><priority>1.0</priority></url>' >> sitemap.xml
-          for file in $(find . -name "*.html"); do
+          for file in $(find . -name "*.html" -not -path "./.git/*"); do
             clean_path=$(echo "${file#./}" | sed 's/ /%20/g')
             url="https://gogamenetiqui.github.io/Go-Buznes/$clean_path"
             echo "<url><loc>$url</loc><priority>0.8</priority></url>" >> sitemap.xml
           done
-          for img in $(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \)); do
+          for img in $(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \) -not -path "./.git/*"); do
             clean_path=$(echo "${img#./}" | sed 's/ /%20/g')
             url="https://gogamenetiqui.github.io/Go-Buznes/$clean_path"
             echo "<url><loc>$url</loc><priority>0.5</priority></url>" >> sitemap.xml
@@ -52,18 +52,14 @@ jobs:
           echo "Allow: /" >> robots.txt
           echo "Sitemap: https://gogamenetiqui.github.io/Go-Buznes/sitemap.xml" >> robots.txt
 
-      - name: 📑 Injecter Schema.org JSON-LD dans les pages
+      - name: 📑 Injecter Schema.org JSON-LD dans les pages HTML principales
         run: |
-          for file in $(find Boutique -name "*.html"); do
-            name=$(basename "$file" .html)
-            jq_schema='{"@context":"https://schema.org","@type":"Store","name":"'"$name"'","url":"https://gogamenetiqui.github.io/Go-Buznes/'"$file"'"}'
-            # insérer juste avant </head>
-            sed -i "s#</head>#<script type=\"application/ld+json\">$jq_schema</script></head>#" "$file"
-          done
-          for file in $(find Article -name "*.html"); do
-            name=$(basename "$file" .html)
-            jq_schema='{"@context":"https://schema.org","@type":"Product","name":"'"$name"'","url":"https://gogamenetiqui.github.io/Go-Buznes/'"$file"'"}'
-            sed -i "s#</head>#<script type=\"application/ld+json\">$jq_schema</script></head>#" "$file"
+          # Injection sécurisée sur les pages principales du nouveau design modulaire
+          for file in index.html home.html; do
+            if [ -f "$file" ]; then
+              jq_schema='{"@context":"https://schema.org","@type":"WebSite","name":"Go Buznes Goma","url":"https://gogamenetiqui.github.io/Go-Buznes/'"$file"'"}'
+              sed -i "s#</head>#<script type=\"application/ld+json\">$jq_schema</script></head>#" "$file"
+            fi
           done
 
       - name: 🔑 Configurer la clé SSH de destination
@@ -78,7 +74,7 @@ jobs:
           git config --global user.name "Netiqui Bot Production"
           git config --global user.email "bot@netiqui.com"
           git add -A
-          git commit -m "Déploiement + sitemap + robots.txt + schema.org [skip ci]" || echo "Aucune modification à commiter"
+          git commit -m "Mise à jour architecture modulaire + sitemap + robots.txt [skip ci]" || echo "Aucune modification à commiter"
           git remote remove miroir || true
           git remote add miroir git@github.com:gogamenetiqui/Go-Buznes.git
           BRANCH_ACTUELLE=$(git branch --show-current)
