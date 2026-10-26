@@ -1,1 +1,160 @@
+:root {
+    --bg-coul: #ffffff;
+    --text-ppl: #000000;
+    --text-asrd: #5f6368;
+    --bl-prim: #0046ad;
+    --sign-gray: #8a8d91;
+}
 
+* {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-coul);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    color: var(--text-asrd);
+}
+
+.chargement {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 24px;
+}
+
+.capsule {
+    height: 40px;
+}
+
+.repere {
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.96);
+    animation: appairageNetiqui 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.repere h1 {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0 0 10px;
+    letter-spacing: -0.5px;
+    color: var(--text-ppl);
+}
+
+.repere h1 span {
+    color: var(--bl-prim);
+    font-weight: 700;
+}
+
+.repere p {
+    font-size: 13px;
+    color: var(--text-asrd);
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.chargeur-repere {
+    width: 110px;
+    height: 3px;
+    background-color: var(--bg-coul);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.chargeur-ligne {
+    position: absolute;
+    background-color: var(--bl-prim);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    animation: glissementLigne 1.4s ease-in-out infinite;
+}
+
+.erreur-chargement {
+    display: none;
+    text-align: center;
+    margin-bottom: 40px;
+    max-width: 280px;
+    animation: appairageNetiqui 0.5s ease forwards;
+}
+
+.erreur-chargement p {
+    font-size: 14px;
+    color: var(--text-asrd);
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.btn-ressayer {
+    background-color: var(--bl-prim);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 45px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgb(from var(--text-ppl) 0 0 0);
+    transition: backgroung-color 0.2s;
+}
+
+.btn-ressayer:active {
+    background-color: var(--text-ppl);
+}
+
+.bas-signature {
+    text-align: center;
+    opacity: 0;
+    animation: appairageNetiqui 0.5 ease forwards;
+}
+
+.bas-signature .studio {
+    font-size: 40px;
+    color: var(--bl-prim);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+@keyframes appairageNetiqui {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes glissementLigne {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    50% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(100%)
+    }
+}
+
+.page-quitter {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
