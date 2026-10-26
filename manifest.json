@@ -13,7 +13,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/Go-Buznes/home.html",
+  "start_url": "/Go-Buznes/index.html",
   "background_color": "#ffffff",
   "display": "standalone",
   "theme_color": "#0046ad",
